@@ -1,0 +1,1814 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Everstar Engineering Co., Ltd.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ===== DESIGN TOKENS ===== */
+      :root {
+        --clr-bg: #f5f4f0;
+        --clr-surface: #ffffff;
+        --clr-surface2: #eeecea;
+        --clr-border: #dddbd6;
+        --clr-text: #111110;
+        --clr-muted: #6b6960;
+        --clr-accent: #1a6b3c;
+        --clr-accent2: #e8f5ee;
+        --clr-nav-bg: rgba(245, 244, 240, 0.88);
+        --clr-topbar: #111110;
+        --clr-topbar-fg: #b8b6af;
+
+        --font-display: "Syne", sans-serif;
+        --font-body: "DM Sans", sans-serif;
+
+        --radius-sm: 6px;
+        --radius-md: 14px;
+        --radius-lg: 22px;
+        --radius-xl: 32px;
+
+        --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.07);
+        --shadow-nav: 0 1px 0 var(--clr-border);
+
+        --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      [data-theme="dark"] {
+        --clr-bg: #0f0f0e;
+        --clr-surface: #1a1a18;
+        --clr-surface2: #232320;
+        --clr-border: #2e2e2b;
+        --clr-text: #a6cfac;
+        --clr-muted: #888780;
+        --clr-accent: #34c26b;
+        --clr-accent2: #0d2318;
+        --clr-nav-bg: rgba(15, 15, 14, 0.88);
+        --clr-topbar: #1a1a18;
+        --clr-topbar-fg: #666660;
+      }
+
+      /* ===== RESET ===== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+      body {
+        font-family: var(--font-body);
+        background: var(--clr-bg);
+        color: var(--clr-text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        transition:
+          background var(--transition),
+          color var(--transition);
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      ul {
+        list-style: none;
+      }
+      button {
+        font-family: var(--font-body);
+        cursor: pointer;
+        border: none;
+      }
+
+      /* ===== LAYOUT ===== */
+      .container {
+        width: min(100%, 1180px);
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 5vw, 3rem);
+      }
+
+      /* ===== TOP BAR ===== */
+      .topbar {
+        background: var(--clr-topbar);
+        color: var(--clr-topbar-fg);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+        padding: 0.5rem 0;
+        transition: background var(--transition);
+      }
+      .topbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .topbar a {
+        color: var(--clr-topbar-fg);
+      }
+      .topbar-item {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      /* ===== MAIN NAV ===== */
+      .main-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--clr-nav-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: var(--shadow-nav);
+        transition: background var(--transition);
+      }
+      .main-nav .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-block: 0.9rem;
+        gap: 1.5rem;
+      }
+      .logo {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.25rem;
+        letter-spacing: -0.02em;
+        color: var(--clr-accent);
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+      .nav-links a {
+        font-size: 0.9rem;
+        font-weight: 500;
+        padding: 0.45rem 0.9rem;
+        border-radius: var(--radius-sm);
+        color: var(--clr-muted);
+        transition:
+          color var(--transition),
+          background var(--transition);
+      }
+      .nav-links a:hover {
+        color: var(--clr-text);
+        background: var(--clr-surface2);
+      }
+
+      /* dark mode toggle */
+      .theme-toggle {
+        width: 38px;
+        height: 22px;
+        background: var(--clr-surface2);
+        border-radius: 999px;
+        border: 1px solid var(--clr-border);
+        position: relative;
+        transition: background var(--transition);
+        flex-shrink: 0;
+      }
+      .theme-toggle::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--clr-accent);
+        transition: transform var(--transition);
+      }
+      [data-theme="dark"] .theme-toggle::after {
+        transform: translateX(16px);
+      }
+      .theme-toggle:focus-visible {
+        outline: 2px solid var(--clr-accent);
+        outline-offset: 2px;
+      }
+
+      /* hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        padding: 4px;
+      }
+      .hamburger span {
+        width: 22px;
+        height: 2px;
+        background: var(--clr-text);
+        border-radius: 2px;
+        transition:
+          transform var(--transition),
+          opacity var(--transition);
+      }
+
+      /* ===== HERO VIDEO ===== */
+      .hero {
+        position: relative;
+        overflow: hidden;
+        height: clamp(340px, 60vh, 680px);
+        background: #0a0a0a;
+      }
+      .hero video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.75;
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          160deg,
+          rgba(0, 0, 0, 0.35) 0%,
+          rgba(26, 107, 60, 0.18) 100%
+        );
+      }
+      .hero-content {
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding-bottom: clamp(2rem, 5vw, 4rem);
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(52, 194, 107, 0.18);
+        border: 1px solid rgba(52, 194, 107, 0.3);
+        color: #6bdf9a;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.3rem 0.8rem;
+        border-radius: 999px;
+        width: fit-content;
+        margin-bottom: 1rem;
+      }
+      .hero-title {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 5.5vw, 4rem);
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        max-width: 700px;
+      }
+      .hero-title em {
+        color: #6bdf9a;
+        font-style: normal;
+      }
+
+      /* ===== SECTION BASE ===== */
+      .section {
+        padding-block: clamp(3.5rem, 7vw, 6rem);
+      }
+      .section-label {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--clr-accent);
+        margin-bottom: 0.75rem;
+      }
+      .section-title {
+        font-family: var(--font-display);
+        font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1.15;
+        margin-bottom: 1.25rem;
+      }
+      .section-body {
+        color: var(--clr-muted);
+        max-width: 680px;
+        line-height: 1.75;
+        font-size: 1.02rem;
+      }
+
+      /* ===== ABOUT ===== */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 5vw, 5rem);
+        align-items: start;
+      }
+
+      /* stats strip */
+      .stats-strip {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-top: 1rem;
+      }
+      .stat-card {
+        background: var(--clr-surface);
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-md);
+        padding: 1.25rem 1.5rem;
+        transition:
+          border-color var(--transition),
+          box-shadow var(--transition);
+      }
+      .stat-card:hover {
+        border-color: var(--clr-accent);
+        box-shadow: 0 0 0 3px var(--clr-accent2);
+      }
+      .stat-num {
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--clr-accent);
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 0.85rem;
+        color: var(--clr-muted);
+        margin-top: 0.25rem;
+      }
+
+      /* brands */
+      .brands-section {
+        margin-top: 3rem;
+      }
+      .brands-title {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--clr-muted);
+        margin-bottom: 1rem;
+      }
+      .brand-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .brand-chip {
+        background: var(--clr-surface);
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-sm);
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--clr-muted);
+        letter-spacing: 0.03em;
+        transition:
+          border-color var(--transition),
+          color var(--transition),
+          background var(--transition);
+      }
+      .brand-chip:hover {
+        border-color: var(--clr-accent);
+        color: var(--clr-accent);
+        background: var(--clr-accent2);
+      }
+
+      /* ===== PRODUCTS ===== */
+      .products-bg {
+        background: var(--clr-surface2);
+      }
+      .products-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+      }
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+        gap: 1.25rem;
+        margin-bottom: 3rem;
+      }
+      .product-card {
+        background: var(--clr-surface);
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition:
+          transform var(--transition),
+          box-shadow var(--transition);
+        cursor: default;
+      }
+      .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      }
+      .product-card img {
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        width: 100%;
+      }
+      .card-body {
+        padding: 1rem 1.1rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--clr-text);
+      }
+
+      /* CTA button */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.88rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        padding: 0.65rem 1.4rem;
+        border-radius: var(--radius-sm);
+        transition:
+          background var(--transition),
+          color var(--transition),
+          box-shadow var(--transition);
+      }
+      .btn-primary {
+        background: var(--clr-accent);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #155a32;
+        box-shadow: 0 4px 16px rgba(26, 107, 60, 0.35);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--clr-accent);
+        border: 1.5px solid var(--clr-accent);
+      }
+      .btn-outline:hover {
+        background: var(--clr-accent2);
+      }
+
+      /* ===== PRODUCT DETAIL ===== */
+      .detail-section {
+        padding-block: 2.5rem;
+        border-top: 1px solid var(--clr-border);
+      }
+      .detail-section:first-of-type {
+        border-top: none;
+      }
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 3rem;
+        align-items: start;
+        margin-top: 1.5rem;
+      }
+      .detail-img-wrap {
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        border: 1px solid var(--clr-border);
+      }
+      .detail-img-wrap img {
+        aspect-ratio: 16/9;
+        object-fit: cover;
+      }
+      .video-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin-top: 0.75rem;
+        font-size: 0.82rem;
+        color: var(--clr-accent);
+        font-weight: 500;
+      }
+      .video-link:hover {
+        text-decoration: underline;
+      }
+      .detail-content h4 {
+        font-family: var(--font-display);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--clr-accent);
+        margin-bottom: 0.6rem;
+        margin-top: 1.25rem;
+      }
+      .detail-content h4:first-child {
+        margin-top: 0;
+      }
+      .detail-content ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .detail-content li {
+        font-size: 0.9rem;
+        color: var(--clr-muted);
+        padding-left: 1rem;
+        position: relative;
+        line-height: 1.55;
+      }
+      .detail-content li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--clr-accent);
+        font-size: 0.8rem;
+      }
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+      .tag {
+        background: var(--clr-accent2);
+        color: var(--clr-accent);
+        border-radius: var(--radius-sm);
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 0.25rem 0.65rem;
+      }
+
+      /* switchboard sub-grids */
+      .sub-section {
+        margin-block: 2rem;
+      }
+      .sub-title {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 1.25rem;
+        color: var(--clr-text);
+      }
+      .spec-card {
+        background: var(--clr-surface);
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        transition:
+          transform var(--transition),
+          box-shadow var(--transition);
+      }
+      .spec-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-card);
+      }
+      .spec-card img {
+        aspect-ratio: 16/9;
+        object-fit: cover;
+      }
+      .spec-card-body {
+        padding: 1rem;
+      }
+      .spec-amp {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--clr-accent);
+      }
+      .spec-brand {
+        font-size: 0.85rem;
+        color: var(--clr-muted);
+        margin-top: 0.2rem;
+      }
+
+      /* ===== MV SECTION ===== */
+      .mv-section {
+        background: var(--clr-surface);
+      }
+      .check-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin-top: 1rem;
+      }
+      .check-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        font-size: 0.95rem;
+        color: var(--clr-muted);
+      }
+      .check-list li::before {
+        content: "✓";
+        color: var(--clr-accent);
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .pix-card {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        background: var(--clr-surface2);
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        margin-top: 2rem;
+      }
+      .pix-card img {
+        width: min(380px, 50%);
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+      .pix-card-body {
+        padding: 2rem;
+      }
+      .pix-card-body h3 {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+
+      /* ===== CONTACT ===== */
+      .contact-section {
+        background: var(--clr-text);
+        color: #fff;
+      }
+      .contact-section .section-label {
+        color: #6bdf9a;
+      }
+      .contact-section .section-title {
+        color: #fff;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+        margin-top: 2rem;
+      }
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-md);
+        transition: border-color var(--transition);
+      }
+      .contact-item:hover {
+        border-color: rgba(107, 223, 154, 0.4);
+      }
+      .contact-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(52, 194, 107, 0.15);
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+      .contact-label {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.45);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .contact-value {
+        font-size: 0.95rem;
+        color: #fff;
+        margin-top: 0.2rem;
+        font-weight: 500;
+      }
+      .contact-details {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      /* ===== FOOTER ===== */
+      footer {
+        background: #0a0a09;
+        color: rgba(255, 255, 255, 0.35);
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 0.82rem;
+      }
+      footer strong {
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      /* ===== SCROLL REVEAL ===== */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* ===== SECONDARY MV / SM CARDS ===== */
+      .secondary-mv {
+        background: var(--clr-bg);
+      }
+      .sm-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+        gap: 1.25rem;
+        margin-top: 1.75rem;
+      }
+      .sm-card {
+        background: var(--clr-surface);
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition:
+          transform var(--transition),
+          box-shadow var(--transition);
+      }
+      .sm-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.11);
+      }
+      .sm-card img {
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        width: 100%;
+      }
+      .sm-card-body {
+        padding: 1.1rem 1.2rem;
+      }
+      .sm-card-body h3 {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+      }
+      .sm-card-body p {
+        font-size: 0.86rem;
+        color: var(--clr-muted);
+        line-height: 1.6;
+      }
+
+      /* ===== TRANSFORMER CARDS ===== */
+      .tx-grid {
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+        gap: 1.25rem;
+        margin-top: 1.75rem;
+      }
+
+      /* ===== BUSWAY SECTION ===== */
+      .busway-section {
+        background: var(--clr-surface2);
+      }
+      .busway-label-badge {
+        display: block;
+        width: 100%;
+        background: var(--clr-accent);
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-align: center;
+        padding: 0.85rem 1rem;
+        /* border-radius: 10px; */
+      }
+      .busway-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+        margin-block: 1.75rem 2.5rem;
+      }
+      .busway-card {
+        background: var(--clr-surface);
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition:
+          transform var(--transition),
+          box-shadow var(--transition);
+      }
+      .busway-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+      }
+      .busway-card img {
+        width: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .busway-intro {
+        background: var(--clr-surface);
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-lg);
+        padding: clamp(1.5rem, 4vw, 2.5rem);
+      }
+      .busway-intro h4 {
+        font-family: var(--font-display);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--clr-accent);
+        margin-bottom: 0.75rem;
+      }
+      .busway-intro ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .busway-intro li {
+        font-size: 0.9rem;
+        color: var(--clr-muted);
+        padding-left: 1.1rem;
+        position: relative;
+        line-height: 1.6;
+      }
+      .busway-intro li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--clr-accent);
+        font-size: 0.8rem;
+      }
+
+      /* mv sub-section divider */
+      .mv-sub {
+        margin-top: 3rem;
+        padding-top: 3rem;
+        border-top: 1px solid var(--clr-border);
+      }
+
+      /* ===== MOBILE NAV ===== */
+      @media (max-width: 720px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          position: fixed;
+          inset: 0 0 0 30%;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 0.5rem;
+          background: var(--clr-surface);
+          padding: 2rem;
+          transform: translateX(100%);
+          transition: transform var(--transition);
+          box-shadow: -4px 0 32px rgba(0, 0, 0, 0.15);
+          z-index: 200;
+        }
+        .nav-links.open {
+          transform: translateX(0);
+        }
+        .nav-links a {
+          font-size: 1.1rem;
+          padding: 0.75rem 1rem;
+          width: 100%;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .detail-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .pix-card {
+          flex-direction: column;
+        }
+        .pix-card img {
+          width: 100%;
+        }
+        .busway-grid {
+          grid-template-columns: 1fr;
+        }
+        .topbar .container {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.25rem;
+        }
+      }
+      @media (max-width: 500px) {
+        .products-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOP BAR -->
+    <div class="topbar" role="banner">
+      <div class="container">
+        <span class="topbar-item">
+          <svg
+            width="12"
+            height="14"
+            viewBox="0 0 12 14"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M6 0C3.24 0 1 2.24 1 5c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5A1.5 1.5 0 1 1 6 3.5a1.5 1.5 0 0 1 0 3z"
+              fill="currentColor"
+            />
+          </svg>
+          Phnom Penh, Cambodia 120210
+        </span>
+        <span class="topbar-item" style="gap: 1.25rem">
+          <a href="mailto:info@example.com" class="topbar-item"
+            >✉ info@example.com</a
+          >
+          <a href="tel:+85561899696" class="topbar-item">✆ +855 61 899 696</a>
+        </span>
+      </div>
+    </div>
+
+    <!-- MAIN NAV -->
+    <nav class="main-nav" role="navigation" aria-label="Main navigation">
+      <div class="container">
+        <a href="#" class="logo" aria-label="Everstar Engineering home"
+          >EVERSTAR</a
+        >
+        <ul class="nav-links" id="navLinks" role="list">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#product">Products</a></li>
+          <li><a href="#mv">MV Systems</a></li>
+          <li><a href="#busway">Busway</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+          title="Toggle dark mode"
+        ></button>
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" aria-label="Hero video">
+      <video autoplay muted loop playsinline>
+        <source
+          src="https://res.cloudinary.com/diavobtxe/video/upload/v1779206531/everstar-video-home-Trim_scihes.mp4"
+          type="video/mp4"
+        />
+      </video>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-content">
+          <span class="hero-eyebrow">Founded 2021 · Cambodia</span>
+          <h1 class="hero-title">
+            Engineering,<br /><em>Aesthetics,</em><br />& Cost Saving
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-grid">
+          <div class="reveal">
+            <span class="section-label">Who We Are</span>
+            <h2 class="section-title" id="about-title">
+              Powering Cambodia's Future Infrastructure
+            </h2>
+            <p class="section-body">
+              <strong>EVERSTAR ENGINEERING CO., LTD.</strong> is a private
+              company founded in 2021, specializing in LV Switchboard, MV
+              Switchgear, Busway Systems, SCADA Systems, and Preventive
+              Maintenance Services. We serve High-Rise Buildings, Data Centers,
+              and Industrial sectors with end-to-end support — from consulting
+              and ETAP electrical design to installation, Testing &
+              Commissioning.
+            </p>
+            <div class="brands-section" style="margin-top: 2rem">
+              <p class="brands-title">Brands We Offer</p>
+              <div class="brand-grid">
+                <span class="brand-chip">ABB</span>
+                <span class="brand-chip">Siemens</span>
+                <span class="brand-chip">Schneider</span>
+                <span class="brand-chip">Mitsubishi</span>
+                <span class="brand-chip">Fuji Electric</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-strip reveal" style="transition-delay: 0.12s">
+            <div class="stat-card">
+              <div class="stat-num">2021</div>
+              <div class="stat-label">Year Established</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">12+</div>
+              <div class="stat-label">Product Categories</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">IEC</div>
+              <div class="stat-label">International Standards Compliant</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">7kA</div>
+              <div class="stat-label">Max LV Switchboard Rating</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section
+      id="product"
+      class="section products-bg"
+      aria-labelledby="product-title"
+    >
+      <div class="container">
+        <div class="products-header">
+          <div class="reveal">
+            <span class="section-label">What We Offer</span>
+            <h2 class="section-title" id="product-title">Our Products</h2>
+          </div>
+          <a
+            href="#contact"
+            class="btn btn-primary reveal"
+            style="transition-delay: 0.1s"
+            >Contact for Inquiry ↗</a
+          >
+        </div>
+
+        <div class="product-grid">
+          <!-- 12 product cards -->
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/lowvoltage-1-768x433.jpeg.webp"
+              alt="LV Switchboard"
+              loading="lazy"
+            />
+            <div class="card-body">
+              <a href="#lv-detail">Low Voltage Switchboard</a>
+            </div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/page-2-768x768.jpeg.webp"
+              alt="Medium Switchgear"
+              loading="lazy"
+            />
+            <div class="card-body">Medium Switchgear / Transformer</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/page-3-768x768.jpeg.webp"
+              alt="Busway System"
+              loading="lazy"
+            />
+            <div class="card-body">
+              Busway System with Design & Installation
+            </div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/page-8-2-1-768x768.jpg.webp"
+              alt="Power Generator"
+              loading="lazy"
+            />
+            <div class="card-body">
+              Data Center & General Use Power Generator
+            </div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/Syncronization-768x768.jpeg.webp"
+              alt="Synchronization System"
+              loading="lazy"
+            />
+            <div class="card-body">Synchronization System</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/page-6-768x768.jpeg.webp"
+              alt="BMS"
+              loading="lazy"
+            />
+            <div class="card-body">Building Management System</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/page-3-2-768x768.jpeg.webp"
+              alt="Preventive Maintenance"
+              loading="lazy"
+            />
+            <div class="card-body">Preventive Maintenance Service</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/page-5-768x768.jpeg.webp"
+              alt="Rack Cabinets"
+              loading="lazy"
+            />
+            <div class="card-body">Rack Cabinets</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/page-7-768x768.jpeg.webp"
+              alt="UPS"
+              loading="lazy"
+            />
+            <div class="card-body">UPS and LV Components</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/page-8-768x768.jpeg.webp"
+              alt="Cable Tray"
+              loading="lazy"
+            />
+            <div class="card-body">Cable Tray, Ladder & Trucking System</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/page-11-768x768.jpeg.webp"
+              alt="Solar System"
+              loading="lazy"
+            />
+            <div class="card-body">Solar On-Grid & Off-Grid System</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="../ourProduct/page-12-768x768.jpeg.webp"
+              alt="ETAP Software"
+              loading="lazy"
+            />
+            <div class="card-body">
+              ETAP Energy Management Software & Calculation Service
+            </div>
+          </div>
+        </div>
+
+        <!-- LV Detail -->
+        <div id="lv-detail" class="detail-section reveal">
+          <span class="section-label">Low Voltage</span>
+          <h2 class="section-title">LV Switchboard & Motor Control Center</h2>
+          <p class="section-body">
+            Type-tested and fully compliant with IEC 60439 standards, applied to
+            our Main Switchboards for large buildings, industries, power
+            generation & smart grid — with predictive maintenance features built
+            in.
+          </p>
+
+          <!-- Main Switchboard sub-section -->
+          <div class="sub-section">
+            <p class="sub-title">Main Switchboard</p>
+            <div
+              class="product-grid"
+              style="
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+              "
+            >
+              <div class="spec-card">
+                <img
+                  src="../ourProduct/main-switch/lowvoltage-1-768x433.jpeg (1).webp"
+                  alt="BlokSet Schneider"
+                  loading="lazy"
+                />
+                <div class="spec-card-body">
+                  <div class="spec-amp">Up to 7000A</div>
+                  <div class="spec-brand">BlokSet — Schneider Electric</div>
+                </div>
+              </div>
+              <div class="spec-card">
+                <img
+                  src="../ourProduct/main-switch/11-768x433.jpg.webp"
+                  alt="Sivacon Siemens"
+                  loading="lazy"
+                />
+                <div class="spec-card-body">
+                  <div class="spec-amp">Up to 7000A</div>
+                  <div class="spec-brand">Sivacon — Siemens</div>
+                </div>
+              </div>
+              <div class="spec-card">
+                <img
+                  src="../ourProduct/main-switch/lowvoltage3-768x433.jpeg.webp"
+                  alt="Motor Control Panel"
+                  loading="lazy"
+                />
+                <div class="spec-card-body">
+                  <div class="spec-amp">Contact for Solution</div>
+                  <div class="spec-brand">
+                    Motor Control Panel — IEC Standard
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Distribution Board sub-section -->
+          <div class="sub-section">
+            <p class="sub-title">
+              Motor Control Board, Distribution Board & Modular Board
+            </p>
+            <div
+              class="product-grid"
+              style="
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+              "
+            >
+              <div class="spec-card">
+                <img
+                  src="../ourProduct/main-switch/Rack-new-1024x577.jpeg.webp"
+                  alt="Distribution Board"
+                  loading="lazy"
+                />
+                <div class="spec-card-body">
+                  <div class="spec-amp">Up to 1250A</div>
+                  <div class="spec-brand">
+                    Distribution Board — IEC Standard
+                  </div>
+                </div>
+              </div>
+              <div class="spec-card">
+                <img
+                  src="../ourProduct/main-switch/low-voltage-5-1024x577.jpeg.webp"
+                  alt="Modular Board"
+                  loading="lazy"
+                />
+                <div class="spec-card-body">
+                  <div class="spec-amp">2 to 36 Modules</div>
+                  <div class="spec-brand">Modular Board — IEC Standard</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BlokSet Detail -->
+          <div class="detail-section">
+            <span class="section-label">Schneider Electric</span>
+            <h3 class="section-title" style="font-size: 1.5rem">
+              BlokSet Low Voltage Switchboard
+            </h3>
+            <p class="section-body">
+              BlokSeT is a low voltage switchboard for power distribution and
+              motor control up to 7000A — engineered for safety, reliability,
+              and intelligence.
+            </p>
+            <div class="detail-grid">
+              <div>
+                <div class="detail-img-wrap">
+                  <img
+                    src="../ourProduct/main-switch/lowvoltage-1-768x433.jpeg (1).webp"
+                    alt="BlokSet"
+                    loading="lazy"
+                  />
+                </div>
+                <a
+                  href="https://www.youtube.com/watch?v=FjNBRxfU_yY"
+                  class="video-link"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  ▶ New Generation of BlokSeT | Schneider Electric
+                </a>
+              </div>
+              <div class="detail-content">
+                <h4>Introduction</h4>
+                <ul>
+                  <li>
+                    Designed & type-tested to IEC 61439-1&2, certified by ASEFA,
+                    ASTA & Dekra
+                  </li>
+                  <li>Recognized LV panel for internal arc performance</li>
+                  <li>Green Premium product</li>
+                  <li>
+                    Worldwide, localized support for troubleshooting &
+                    maintenance
+                  </li>
+                </ul>
+                <h4>Applications</h4>
+                <div class="tag-list">
+                  <span class="tag">Data Center</span
+                  ><span class="tag">Industry</span
+                  ><span class="tag">Commercial Building</span>
+                </div>
+                <div style="margin-top: 1.5rem">
+                  <a href="#contact" class="btn btn-primary"
+                    >Contact for Quotation</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sivacon Detail -->
+          <div class="detail-section">
+            <span class="section-label">Siemens</span>
+            <h3 class="section-title" style="font-size: 1.5rem">
+              Sivacon S8 Low Voltage Switchboard
+            </h3>
+            <p class="section-body">
+              The Sivacon S8 supports safe, flexible, efficient power
+              distribution up to 7010A — fully compatible with SENTRON devices
+              to reduce investment costs and increase availability.
+            </p>
+            <div class="detail-grid">
+              <div>
+                <div class="detail-img-wrap">
+                  <img
+                    src="../ourProduct/main-switch/11-768x433.jpg.webp"
+                    alt="Sivacon S8"
+                    loading="lazy"
+                  />
+                </div>
+                <a
+                  href="https://www.youtube.com/watch?v=ZHMTKf5B8oI"
+                  class="video-link"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  ▶ SIVACON S8 Low-Voltage Switchboard
+                </a>
+              </div>
+              <div class="detail-content">
+                <h4>Introduction</h4>
+                <ul>
+                  <li>
+                    Tested to IEC 61439-1/2, ensuring highest safety for people
+                    and equipment
+                  </li>
+                  <li>
+                    Modular construction to suit all individual requirements
+                  </li>
+                  <li>
+                    Quickly configured via SIMARIS software, saving planning
+                    time
+                  </li>
+                  <li>Main Switchboard & Motor Control offering</li>
+                </ul>
+                <h4>Applications</h4>
+                <div class="tag-list">
+                  <span class="tag">Data Center</span
+                  ><span class="tag">Industry</span
+                  ><span class="tag">Commercial Building</span>
+                </div>
+                <div style="margin-top: 1.5rem">
+                  <a href="#contact" class="btn btn-primary"
+                    >Contact for Quotation</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Distribution Board Detail -->
+          <div class="detail-section">
+            <span class="section-label">IEC Standard</span>
+            <h3 class="section-title" style="font-size: 1.5rem">
+              Distribution Board & Motor Control Board
+            </h3>
+            <p class="section-body">
+              Manufactured up to 1600A and fully customizable to meet customer
+              requirements — certified safe and reliable for your business power
+              supply.
+            </p>
+            <div class="detail-grid">
+              <div>
+                <div class="detail-img-wrap">
+                  <img
+                    src="../ourProduct/main-switch/Rack-new-1024x577.jpeg.webp"
+                    alt="Distribution Board"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div class="detail-content">
+                <h4>Introduction</h4>
+                <ul>
+                  <li>
+                    Manufactured to IEC 61439-1/2 — highest quality and safety
+                    assured
+                  </li>
+                  <li>
+                    Full range: 63A–1600A, motors up to 250kW for industrial &
+                    civil projects
+                  </li>
+                  <li>Certified by Quatest-1 per IEC 61439-1 and IEC 60529</li>
+                </ul>
+                <h4>Applications</h4>
+                <div class="tag-list">
+                  <span class="tag">Data Center</span
+                  ><span class="tag">Industry</span
+                  ><span class="tag">Commercial Building</span>
+                </div>
+                <div style="margin-top: 1.5rem">
+                  <a href="#contact" class="btn btn-primary"
+                    >Contact for Quotation</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MV SECTION -->
+    <section id="mv" class="section mv-section" aria-labelledby="mv-title">
+      <div class="container">
+        <div class="reveal">
+          <span class="section-label">Medium Voltage</span>
+          <h2 class="section-title" id="mv-title">
+            Medium Switchgear & Transformer
+          </h2>
+          <p class="section-body">
+            MV switchgear for primary or secondary distribution with AIS, GIS,
+            and 2SIS technologies — embedded with leading protection,
+            automation, and IoT connectivity.
+          </p>
+          <ul class="check-list" style="margin-top: 1.5rem; max-width: 560px">
+            <li>
+              Consultation & Design to provide sustainable, tailored solutions
+            </li>
+            <li>
+              Wide range of switchgears for both primary & secondary
+              distribution
+            </li>
+            <li>Highest international standards across all offerings</li>
+          </ul>
+        </div>
+
+        <div class="reveal" style="transition-delay: 0.1s">
+          <span
+            class="section-label"
+            style="margin-top: 2.5rem; display: inline-block"
+            >Air Insulated — Up to 24 kV</span
+          >
+          <h3 class="section-title" style="font-size: 1.4rem">
+            Primary Air Insulated Switchgear
+          </h3>
+          <p class="section-body">
+            High-performance functionality up to 3150A 40kA/s at 24kV, and up to
+            4000A 31.5kA/s at 12kV.
+          </p>
+
+          <div class="pix-card">
+            <img
+              src="../ourProduct/main-switch/PIx24-768x433.jpeg.webp"
+              alt="PIX 24 Switchgear"
+              loading="lazy"
+            />
+            <div class="pix-card-body">
+              <h3>PIX 24</h3>
+              <p class="section-body">
+                Air Insulated Switchgear up to 24 kV with vacuum withdrawable
+                circuit breaker — engineered for reliability and long service
+                life.
+              </p>
+              <div
+                style="
+                  margin-top: 1.5rem;
+                  display: flex;
+                  gap: 0.75rem;
+                  flex-wrap: wrap;
+                "
+              >
+                <a href="#contact" class="btn btn-primary">Get a Quote</a>
+                <a href="#contact" class="btn btn-outline">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECONDARY AIS + TRANSFORMERS -->
+    <section class="section secondary-mv" aria-labelledby="secondary-title">
+      <div class="container">
+        <!-- Secondary AIS -->
+        <div class="reveal">
+          <span class="section-label"
+            >Secondary Distribution — Up to 24 kV</span
+          >
+          <h2 class="section-title" id="secondary-title">
+            Secondary Air Insulated Switchgear
+          </h2>
+          <p class="section-body">
+            Our latest secondary distribution switchgear is a perfect fit for
+            large buildings, industries, and smart grids. IoT-connected features
+            bring predictive maintenance possibilities to maximize efficiency
+            and minimize downtime.
+          </p>
+          <div style="margin-top: 1.25rem">
+            <a href="#contact" class="btn btn-outline">Contact for Inquiry</a>
+          </div>
+        </div>
+
+        <div class="sm-grid">
+          <div class="sm-card reveal">
+            <img
+              src="../ourProduct/sm/sm-airset-768x433.jpeg.webp"
+              alt="SM AirSeT"
+              loading="lazy"
+            />
+            <div class="sm-card-body">
+              <h3>SM AirSeT</h3>
+              <p>
+                SF6-free modular switchboard up to 24kV. Green and digital
+                modular air-insulated MV switchgear for secondary distribution
+                networks.
+              </p>
+            </div>
+          </div>
+          <div class="sm-card reveal">
+            <img
+              src="../ourProduct/sm/sm624-768x433.jpeg.webp"
+              alt="SM624"
+              loading="lazy"
+            />
+            <div class="sm-card-body">
+              <h3>SM624</h3>
+              <p>
+                SF6-free modular switchboard up to 24kV. Green and digital
+                modular air-insulated MV switchgear for secondary distribution
+                networks.
+              </p>
+            </div>
+          </div>
+          <div class="sm-card reveal">
+            <img
+              src="../ourProduct/sm/SM6-24-768x433.jpeg.webp"
+              alt="RM6"
+              loading="lazy"
+            />
+            <div class="sm-card-body">
+              <h3>RM6</h3>
+              <p>
+                Hi-reliable Gas Insulated ring main unit for underground
+                secondary distribution applications, up to 24 kV.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transformers -->
+        <div class="mv-sub reveal">
+          <span class="section-label">Transformers</span>
+          <h2 class="section-title">Dry &amp; Oil Transformer Types</h2>
+          <p class="section-body">
+            We provide a wide range of dry and oil transformers across brands
+            and specifications — tailored precisely to each client's
+            requirement.
+          </p>
+          <div style="margin-top: 1.25rem">
+            <a href="#contact" class="btn btn-outline">Contact for Inquiry</a>
+          </div>
+          <div class="tx-grid" style="margin-top: 1.75rem">
+            <div class="sm-card reveal">
+              <img
+                src="../ourProduct/sm/page-8-1-768x433.jpeg.webp"
+                alt="Dry Type Transformer"
+                loading="lazy"
+              />
+              <div class="sm-card-body">
+                <h3>Dry Type Transformer</h3>
+              </div>
+            </div>
+            <div class="sm-card reveal">
+              <img
+                src="../ourProduct/sm/page-9-768x433.jpeg.webp"
+                alt="Oil Type Transformer"
+                loading="lazy"
+              />
+              <div class="sm-card-body">
+                <h3>Oil Type Transformer</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUSWAY SYSTEM -->
+    <section
+      id="busway"
+      class="section busway-section"
+      aria-labelledby="busway-title"
+    >
+      <div class="container">
+        <div class="reveal">
+          <span class="section-label">Busway System</span>
+          <h2 class="section-title" id="busway-title">
+            Consult, Design &amp; Build
+          </h2>
+          <p class="section-body">
+            Complete busway solutions for your building — up to 6300A, IEC
+            61439-6 compliant. From transformer to MSB to riser/load point,
+            every segment handled with precision.
+          </p>
+        </div>
+
+        <div class="busway-grid">
+          <div class="busway-card reveal">
+            <span class="busway-label-badge">General Design</span>
+            <img
+              src="../ourProduct/sm/busway-image-1-1-768x915.png.webp"
+              alt="General Design"
+              loading="lazy"
+              style="aspect-ratio: 3/4"
+            />
+          </div>
+          <div class="busway-card reveal">
+            <span class="busway-label-badge">Transformer Selection</span>
+            <img
+              src="../ourProduct/sm/busy-image-5-768x874.png.webp"
+              alt="Transformer Selection"
+              loading="lazy"
+              style="aspect-ratio: 3/4"
+            />
+          </div>
+          <div class="busway-card reveal">
+            <span class="busway-label-badge">FET Design</span>
+            <img
+              src="../ourProduct/sm/busway-image-4-768x868.png.webp"
+              alt="FET Design"
+              loading="lazy"
+              style="aspect-ratio: 3/4"
+            />
+          </div>
+        </div>
+
+        <div class="busway-intro reveal">
+          <h4>System Overview</h4>
+          <ul>
+            <li>
+              <strong>Transformer → MSB:</strong> FET for Dry Type Transformer +
+              Flexible Link + Busbar Adaptation + FET Cover
+            </li>
+            <li>
+              <strong>Generator → MSB:</strong> Flanged End + Flexible Link +
+              Busbar Adaptation + Cover / End Cable Box
+            </li>
+            <li>Busway from MSB to Riser / Load Point</li>
+            <li>
+              Optimized solutions for Data Centers and High-Rise Buildings
+            </li>
+            <li>
+              Support material: Galvanized steel &amp; Inox 304 selected for
+              durability
+            </li>
+            <li>
+              Only qualified engineers and skilled technicians perform the work
+              — with proprietary software for design, BOQ generation, and
+              detailed site survey calculations
+            </li>
+            <li>
+              Full procedures provided: design, installation, Testing &amp;
+              Commissioning, and post-operation observation to ensure long-term
+              safety
+            </li>
+          </ul>
+          <div style="margin-top: 1.75rem">
+            <a href="#contact" class="btn btn-primary">Contact for Quotation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section
+      id="contact"
+      class="section contact-section"
+      aria-labelledby="contact-title"
+    >
+      <div class="container">
+        <span class="section-label">Get in Touch</span>
+        <h2 class="section-title" id="contact-title">
+          Ready to Start Your Project?
+        </h2>
+        <div class="contact-grid">
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.6);
+              font-size: 1.05rem;
+              line-height: 1.75;
+            "
+          >
+            We provide comprehensive support from consulting and technical
+            design to installation and commissioning. Reach out to discuss your
+            requirements.
+          </p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <div class="contact-label">Location</div>
+                <div class="contact-value">Phnom Penh, Cambodia 120210</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">✉</div>
+              <div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value">
+                  <a href="mailto:info@example.com" style="color: inherit"
+                    >info@example.com</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <div class="contact-label">Phone</div>
+                <div class="contact-value">
+                  <a href="tel:+85561899696" style="color: inherit"
+                    >+855 61 899 696</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        &copy; 2026 <strong>Everstar Engineering Co., Ltd.</strong> All rights
+        reserved.
+      </p>
+    </footer>
+
+    <script>
+      // Dark mode toggle
+      const toggle = document.getElementById("themeToggle");
+      const html = document.documentElement;
+      const saved = localStorage.getItem("theme");
+      if (saved) html.setAttribute("data-theme", saved);
+
+      toggle.addEventListener("click", () => {
+        const isDark = html.getAttribute("data-theme") === "dark";
+        const next = isDark ? "light" : "dark";
+        html.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+      });
+
+      // Mobile nav
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+      hamburger.addEventListener("click", () => {
+        const open = navLinks.classList.toggle("open");
+        hamburger.setAttribute("aria-expanded", open);
+      });
+      navLinks.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          hamburger.setAttribute("aria-expanded", false);
+        });
+      });
+
+      // Scroll reveal
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
