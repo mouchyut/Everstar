@@ -200,23 +200,65 @@
         outline-offset: 2px;
       }
 
-      /* hamburger */
-      .hamburger {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        background: none;
-        padding: 4px;
-      }
-      .hamburger span {
-        width: 22px;
-        height: 2px;
-        background: var(--clr-text);
-        border-radius: 2px;
-        transition:
-          transform var(--transition),
-          opacity var(--transition);
-      }
+/* Hamburger button */
+.hamburger {
+  display: none;
+  position: relative;
+
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  z-index: 1001;
+
+  justify-content: center;
+  align-items: center;
+
+  transition: background .2s ease;
+}
+
+.hamburger:hover {
+  background: rgba(0,0,0,.06);
+}
+
+/* Bars */
+.hamburger span {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background: var(--clr-text);
+  border-radius: 10px;
+  transition:
+    transform .25s ease,
+    opacity .2s ease;
+}
+
+/* Default ☰ */
+.hamburger span:nth-child(1) {
+  transform: translateY(-6px);
+}
+
+.hamburger span:nth-child(2) {
+  transform: translateY(0);
+}
+
+.hamburger span:nth-child(3) {
+  transform: translateY(6px);
+}
+
+/* Open → clean ✕ */
+.hamburger[aria-expanded="true"] span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.hamburger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger[aria-expanded="true"] span:nth-child(3) {
+  transform: rotate(-45deg);
+}
 
       /* ===== HERO VIDEO ===== */
       .hero {
@@ -281,110 +323,94 @@
       }
 
       /* ===== SECTION BASE ===== */
-      .section {
-        padding-block: clamp(3.5rem, 7vw, 6rem);
-      }
-      .section-label {
-        display: inline-block;
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--clr-accent);
-        margin-bottom: 0.75rem;
-      }
-      .section-title {
-        font-family: var(--font-display);
-        font-size: clamp(1.6rem, 3.5vw, 2.6rem);
-        font-weight: 700;
-        letter-spacing: -0.025em;
-        line-height: 1.15;
-        margin-bottom: 1.25rem;
-      }
-      .section-body {
-        color: var(--clr-muted);
-        max-width: 680px;
-        line-height: 1.75;
-        font-size: 1.02rem;
-      }
+    .section { padding-block: clamp(3.5rem, 7vw, 6rem); }
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--clr-accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .section-body {
+      color: var(--clr-muted);
+      max-width: 680px;
+      line-height: 1.75;
+      font-size: 1.02rem;
+    }
 
-      /* ===== ABOUT ===== */
-      .about-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: clamp(2rem, 5vw, 5rem);
-        align-items: start;
-      }
+    /* ===== ABOUT ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: start;
+    }
 
-      /* stats strip */
-      .stats-strip {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        padding-top: 1rem;
-      }
-      .stat-card {
-        background: var(--clr-surface);
-        border: 1px solid var(--clr-border);
-        border-radius: var(--radius-md);
-        padding: 1.25rem 1.5rem;
-        transition:
-          border-color var(--transition),
-          box-shadow var(--transition);
-      }
-      .stat-card:hover {
-        border-color: var(--clr-accent);
-        box-shadow: 0 0 0 3px var(--clr-accent2);
-      }
-      .stat-num {
-        font-family: var(--font-display);
-        font-size: 2rem;
-        font-weight: 800;
-        color: var(--clr-accent);
-        line-height: 1;
-      }
-      .stat-label {
-        font-size: 0.85rem;
-        color: var(--clr-muted);
-        margin-top: 0.25rem;
-      }
+    /* stats strip */
+    .stats-strip {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding-top: 1rem;
+    }
+    .stat-card {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .stat-card:hover { border-color: var(--clr-accent); box-shadow: 0 0 0 3px var(--clr-accent2); }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--clr-accent);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.85rem; color: var(--clr-muted); margin-top: 0.25rem; }
 
-      /* brands */
-      .brands-section {
-        margin-top: 3rem;
-      }
-      .brands-title {
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--clr-muted);
-        margin-bottom: 1rem;
-      }
-      .brand-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-      }
-      .brand-chip {
-        background: var(--clr-surface);
-        border: 1px solid var(--clr-border);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--clr-muted);
-        letter-spacing: 0.03em;
-        transition:
-          border-color var(--transition),
-          color var(--transition),
-          background var(--transition);
-      }
-      .brand-chip:hover {
-        border-color: var(--clr-accent);
-        color: var(--clr-accent);
-        background: var(--clr-accent2);
-      }
+    /* brands */
+    .brands-section { margin-top: 3rem; }
+    .brands-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clr-muted);
+      margin-bottom: 1rem;
+    }
+    .brand-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .brand-img-wrap {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      height: 52px;
+      width: 130px;
+    }
+    .brand-img-wrap:hover { border-color: var(--clr-accent); box-shadow: 0 0 0 3px var(--clr-accent2); }
+    .brand-img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; filter: grayscale(30%); transition: filter var(--transition); }
+    .brand-img-wrap:hover img { filter: grayscale(0%); }
 
       /* ===== PRODUCTS ===== */
       .products-bg {
@@ -425,6 +451,7 @@
       }
       .card-body {
         padding: 1rem 1.1rem;
+        text-align: center;
         font-size: 0.9rem;
         font-weight: 500;
         color: var(--clr-text);
@@ -737,6 +764,7 @@
         border: 1px solid var(--clr-border);
         border-radius: var(--radius-lg);
         overflow: hidden;
+        text-align: center;
         transition:
           transform var(--transition),
           box-shadow var(--transition);
@@ -994,56 +1022,48 @@
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="section" aria-labelledby="about-title">
-      <div class="container">
-        <div class="about-grid">
-          <div class="reveal">
-            <span class="section-label">Who We Are</span>
-            <h2 class="section-title" id="about-title">
-              Powering Cambodia's Future Infrastructure
-            </h2>
-            <p class="section-body">
-              <strong>EVERSTAR ENGINEERING CO., LTD.</strong> is a private
-              company founded in 2021, specializing in LV Switchboard, MV
-              Switchgear, Busway Systems, SCADA Systems, and Preventive
-              Maintenance Services. We serve High-Rise Buildings, Data Centers,
-              and Industrial sectors with end-to-end support — from consulting
-              and ETAP electrical design to installation, Testing &
-              Commissioning.
-            </p>
-            <div class="brands-section" style="margin-top: 2rem">
-              <p class="brands-title">Brands We Offer</p>
-              <div class="brand-grid">
-                <span class="brand-chip">ABB</span>
-                <span class="brand-chip">Siemens</span>
-                <span class="brand-chip">Schneider</span>
-                <span class="brand-chip">Mitsubishi</span>
-                <span class="brand-chip">Fuji Electric</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="stats-strip reveal" style="transition-delay: 0.12s">
-            <div class="stat-card">
-              <div class="stat-num">2021</div>
-              <div class="stat-label">Year Established</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-num">12+</div>
-              <div class="stat-label">Product Categories</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-num">IEC</div>
-              <div class="stat-label">International Standards Compliant</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-num">7kA</div>
-              <div class="stat-label">Max LV Switchboard Rating</div>
-            </div>
+<section id="about" class="section" aria-labelledby="about-title">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="section-label">Who We Are</span>
+        <h2 class="section-title" id="about-title">Powering Cambodia's Future Infrastructure</h2>
+        <p class="section-body">
+          <strong>EVERSTAR ENGINEERING CO., LTD.</strong> is a private company founded in 2021, specializing in LV Switchboard, MV Switchgear, Busway Systems, SCADA Systems, and Preventive Maintenance Services. We serve High-Rise Buildings, Data Centers, and Industrial sectors with end-to-end support — from consulting and ETAP electrical design to installation, Testing & Commissioning.
+        </p>
+        <div class="brands-section" style="margin-top:2rem;">
+          <p class="brands-title">Brands We Offer</p>
+          <div class="brand-grid">
+            <div class="brand-img-wrap"><img src="https://res.cloudinary.com/diavobtxe/image/upload/v1779378376/page-4-300x90.jpeg_izp5os.webp" alt="ABB" /></div>
+            <div class="brand-img-wrap"><img src="https://res.cloudinary.com/diavobtxe/image/upload/v1779377804/page-1-2-300x90.jpeg_ewdf7n.webp" alt="Siemens" /></div>
+            <div class="brand-img-wrap"><img src="https://res.cloudinary.com/diavobtxe/image/upload/v1779378378/schnie-300x90.jpeg_v0b0s8.webp" alt="Schneider" /></div>
+            <div class="brand-img-wrap"><img src="https://res.cloudinary.com/diavobtxe/image/upload/v1779377856/page-2-2-300x90.jpeg_ednfek.webp" alt="Mitsubishi" /></div>
+            <div class="brand-img-wrap"><img src="https://res.cloudinary.com/diavobtxe/image/upload/v1779377913/page-3-1-300x90.jpeg_e2qh5z.webp" alt="Fuji Electric" /></div>
           </div>
         </div>
       </div>
-    </section>
+
+      <div class="stats-strip reveal" style="transition-delay:0.12s;">
+        <div class="stat-card">
+          <div class="stat-num">2021</div>
+          <div class="stat-label">Year Established</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">12+</div>
+          <div class="stat-label">Product Categories</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">IEC</div>
+          <div class="stat-label">International Standards Compliant</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">7kA</div>
+          <div class="stat-label">Max LV Switchboard Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- PRODUCTS -->
     <section
@@ -1069,7 +1089,7 @@
           <!-- 12 product cards -->
           <div class="product-card reveal">
             <img
-              src="../ourProduct/lowvoltage-1-768x433.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375555/lowvoltage-1-768x433.jpeg_ncpyvs.webp"
               alt="LV Switchboard"
               loading="lazy"
             />
@@ -1079,7 +1099,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/page-2-768x768.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375635/page-2-768x768.jpeg_wbxnws.webp"
               alt="Medium Switchgear"
               loading="lazy"
             />
@@ -1087,7 +1107,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/page-3-768x768.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375684/page-3-768x768.jpeg_okzqlt.webp"
               alt="Busway System"
               loading="lazy"
             />
@@ -1097,7 +1117,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/page-8-2-1-768x768.jpg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375738/page-8-2-1-768x768.jpg_gxfhn0.webp"
               alt="Power Generator"
               loading="lazy"
             />
@@ -1107,7 +1127,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/Syncronization-768x768.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375795/Syncronization-768x768.jpeg_nbmtdd.webp"
               alt="Synchronization System"
               loading="lazy"
             />
@@ -1115,7 +1135,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/page-6-768x768.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375829/page-6-768x768.jpeg_bcvldt.webp"
               alt="BMS"
               loading="lazy"
             />
@@ -1123,7 +1143,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/page-3-2-768x768.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375882/page-3-2-768x768.jpeg_cassmt.webp"
               alt="Preventive Maintenance"
               loading="lazy"
             />
@@ -1131,7 +1151,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/page-5-768x768.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375928/page-5-768x768.jpeg_mfazbf.webp"
               alt="Rack Cabinets"
               loading="lazy"
             />
@@ -1139,7 +1159,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/page-7-768x768.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375979/page-7-768x768.jpeg_czhrhd.webp"
               alt="UPS"
               loading="lazy"
             />
@@ -1147,7 +1167,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/page-8-768x768.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376153/page-8-768x768.jpeg_hsvwzf.webp"
               alt="Cable Tray"
               loading="lazy"
             />
@@ -1155,7 +1175,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/page-11-768x768.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376056/page-11-768x768.jpeg_bsj2us.webp"
               alt="Solar System"
               loading="lazy"
             />
@@ -1163,7 +1183,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="../ourProduct/page-12-768x768.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376018/page-12-768x768.jpeg_joxbtu.webp"
               alt="ETAP Software"
               loading="lazy"
             />
@@ -1187,15 +1207,11 @@
           <!-- Main Switchboard sub-section -->
           <div class="sub-section">
             <p class="sub-title">Main Switchboard</p>
-            <div
-              class="product-grid"
-              style="
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-              "
-            >
-              <div class="spec-card">
+
+            <div class="sm-grid">
+              <div class="sm-card">
                 <img
-                  src="../ourProduct/main-switch/lowvoltage-1-768x433.jpeg (1).webp"
+                  src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375555/lowvoltage-1-768x433.jpeg_ncpyvs.webp"
                   alt="BlokSet Schneider"
                   loading="lazy"
                 />
@@ -1204,9 +1220,9 @@
                   <div class="spec-brand">BlokSet — Schneider Electric</div>
                 </div>
               </div>
-              <div class="spec-card">
+              <div class="sm-card">
                 <img
-                  src="../ourProduct/main-switch/11-768x433.jpg.webp"
+                  src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376286/11-768x433.jpg_kpl6sp.webp"
                   alt="Sivacon Siemens"
                   loading="lazy"
                 />
@@ -1215,9 +1231,9 @@
                   <div class="spec-brand">Sivacon — Siemens</div>
                 </div>
               </div>
-              <div class="spec-card">
+              <div class="sm-card">
                 <img
-                  src="../ourProduct/main-switch/lowvoltage3-768x433.jpeg.webp"
+                  src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376334/lowvoltage3-768x433.jpeg_jznedw.webp"
                   alt="Motor Control Panel"
                   loading="lazy"
                 />
@@ -1236,15 +1252,10 @@
             <p class="sub-title">
               Motor Control Board, Distribution Board & Modular Board
             </p>
-            <div
-              class="product-grid"
-              style="
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-              "
-            >
-              <div class="spec-card">
+            <div class="sm-grid">
+              <div class="sm-card">
                 <img
-                  src="../ourProduct/main-switch/Rack-new-1024x577.jpeg.webp"
+                  src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376375/Rack-new-1024x577.jpeg_sy03vz.webp"
                   alt="Distribution Board"
                   loading="lazy"
                 />
@@ -1255,9 +1266,9 @@
                   </div>
                 </div>
               </div>
-              <div class="spec-card">
+              <div class="sm-card">
                 <img
-                  src="../ourProduct/main-switch/low-voltage-5-1024x577.jpeg.webp"
+                  src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376410/low-voltage-5-1024x577.jpeg_inp1co.webp"
                   alt="Modular Board"
                   loading="lazy"
                 />
@@ -1265,6 +1276,7 @@
                   <div class="spec-amp">2 to 36 Modules</div>
                   <div class="spec-brand">Modular Board — IEC Standard</div>
                 </div>
+              </div>
               </div>
             </div>
           </div>
@@ -1284,7 +1296,7 @@
               <div>
                 <div class="detail-img-wrap">
                   <img
-                    src="../ourProduct/main-switch/lowvoltage-1-768x433.jpeg (1).webp"
+                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375555/lowvoltage-1-768x433.jpeg_ncpyvs.webp"
                     alt="BlokSet"
                     loading="lazy"
                   />
@@ -1342,7 +1354,7 @@
               <div>
                 <div class="detail-img-wrap">
                   <img
-                    src="../ourProduct/main-switch/11-768x433.jpg.webp"
+                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376286/11-768x433.jpg_kpl6sp.webp"
                     alt="Sivacon S8"
                     loading="lazy"
                   />
@@ -1402,7 +1414,7 @@
               <div>
                 <div class="detail-img-wrap">
                   <img
-                    src="../ourProduct/main-switch/Rack-new-1024x577.jpeg.webp"
+                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376375/Rack-new-1024x577.jpeg_sy03vz.webp"
                     alt="Distribution Board"
                     loading="lazy"
                   />
@@ -1480,7 +1492,7 @@
 
           <div class="pix-card">
             <img
-              src="../ourProduct/main-switch/PIx24-768x433.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376567/PIx24-768x433.jpeg_acmjiw.webp"
               alt="PIX 24 Switchgear"
               loading="lazy"
             />
@@ -1533,7 +1545,7 @@
         <div class="sm-grid">
           <div class="sm-card reveal">
             <img
-              src="../ourProduct/sm/sm-airset-768x433.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376617/sm-airset-768x433.jpeg_plsdp0.webp"
               alt="SM AirSeT"
               loading="lazy"
             />
@@ -1548,7 +1560,7 @@
           </div>
           <div class="sm-card reveal">
             <img
-              src="../ourProduct/sm/sm624-768x433.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376661/sm624-768x433.jpeg_dvliro.webp"
               alt="SM624"
               loading="lazy"
             />
@@ -1563,7 +1575,7 @@
           </div>
           <div class="sm-card reveal">
             <img
-              src="../ourProduct/sm/SM6-24-768x433.jpeg.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376702/SM6-24-768x433.jpeg_fcbzna.webp"
               alt="RM6"
               loading="lazy"
             />
@@ -1592,7 +1604,7 @@
           <div class="tx-grid" style="margin-top: 1.75rem">
             <div class="sm-card reveal">
               <img
-                src="../ourProduct/sm/page-8-1-768x433.jpeg.webp"
+                src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376736/page-8-1-768x433.jpeg_rtgyvx.webp"
                 alt="Dry Type Transformer"
                 loading="lazy"
               />
@@ -1602,7 +1614,7 @@
             </div>
             <div class="sm-card reveal">
               <img
-                src="../ourProduct/sm/page-9-768x433.jpeg.webp"
+                src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376769/page-9-768x433.jpeg_bb3nij.webp"
                 alt="Oil Type Transformer"
                 loading="lazy"
               />
@@ -1638,7 +1650,7 @@
           <div class="busway-card reveal">
             <span class="busway-label-badge">General Design</span>
             <img
-              src="../ourProduct/sm/busway-image-1-1-768x915.png.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376820/busway-image-1-1-768x915.png_qwginh.webp"
               alt="General Design"
               loading="lazy"
               style="aspect-ratio: 3/4"
@@ -1647,7 +1659,7 @@
           <div class="busway-card reveal">
             <span class="busway-label-badge">Transformer Selection</span>
             <img
-              src="../ourProduct/sm/busy-image-5-768x874.png.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376825/busy-image-5-768x874.png_barxxm.webp"
               alt="Transformer Selection"
               loading="lazy"
               style="aspect-ratio: 3/4"
@@ -1656,7 +1668,7 @@
           <div class="busway-card reveal">
             <span class="busway-label-badge">FET Design</span>
             <img
-              src="../ourProduct/sm/busway-image-4-768x868.png.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376822/busway-image-4-768x868.png_mbzg3v.webp"
               alt="FET Design"
               loading="lazy"
               style="aspect-ratio: 3/4"
