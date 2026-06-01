@@ -44,7 +44,7 @@
         --clr-surface: #1a1a18;
         --clr-surface2: #232320;
         --clr-border: #2e2e2b;
-        --clr-text: #a6cfac;
+        --clr-text: #f0ede8;
         --clr-muted: #888780;
         --clr-accent: #34c26b;
         --clr-accent2: #0d2318;
@@ -200,65 +200,23 @@
         outline-offset: 2px;
       }
 
-/* Hamburger button */
-.hamburger {
-  display: none;
-  position: relative;
-
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-  z-index: 1001;
-
-  justify-content: center;
-  align-items: center;
-
-  transition: background .2s ease;
-}
-
-.hamburger:hover {
-  background: rgba(0,0,0,.06);
-}
-
-/* Bars */
-.hamburger span {
-  position: absolute;
-  width: 20px;
-  height: 2px;
-  background: var(--clr-text);
-  border-radius: 10px;
-  transition:
-    transform .25s ease,
-    opacity .2s ease;
-}
-
-/* Default ☰ */
-.hamburger span:nth-child(1) {
-  transform: translateY(-6px);
-}
-
-.hamburger span:nth-child(2) {
-  transform: translateY(0);
-}
-
-.hamburger span:nth-child(3) {
-  transform: translateY(6px);
-}
-
-/* Open → clean ✕ */
-.hamburger[aria-expanded="true"] span:nth-child(1) {
-  transform: rotate(45deg);
-}
-
-.hamburger[aria-expanded="true"] span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger[aria-expanded="true"] span:nth-child(3) {
-  transform: rotate(-45deg);
-}
+      /* hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        padding: 4px;
+      }
+      .hamburger span {
+        width: 22px;
+        height: 2px;
+        background: var(--clr-text);
+        border-radius: 2px;
+        transition:
+          transform var(--transition),
+          opacity var(--transition);
+      }
 
       /* ===== HERO VIDEO ===== */
       .hero {
@@ -323,94 +281,121 @@
       }
 
       /* ===== SECTION BASE ===== */
-    .section { padding-block: clamp(3.5rem, 7vw, 6rem); }
-    .section-label {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--clr-accent);
-      margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.15;
-      margin-bottom: 1.25rem;
-    }
-    .section-body {
-      color: var(--clr-muted);
-      max-width: 680px;
-      line-height: 1.75;
-      font-size: 1.02rem;
-    }
+      .section {
+        padding-block: clamp(3.5rem, 7vw, 6rem);
+      }
+      .section-label {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--clr-accent);
+        margin-bottom: 0.75rem;
+      }
+      .section-title {
+        font-family: var(--font-display);
+        font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1.15;
+        margin-bottom: 1.25rem;
+      }
+      .section-body {
+        color: var(--clr-muted);
+        max-width: 680px;
+        line-height: 1.75;
+        font-size: 1.02rem;
+      }
 
-    /* ===== ABOUT ===== */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(2rem, 5vw, 5rem);
-      align-items: start;
-    }
+      /* ===== ABOUT ===== */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 5vw, 5rem);
+        align-items: start;
+      }
 
-    /* stats strip */
-    .stats-strip {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      padding-top: 1rem;
-    }
-    .stat-card {
-      background: var(--clr-surface);
-      border: 1px solid var(--clr-border);
-      border-radius: var(--radius-md);
-      padding: 1.25rem 1.5rem;
-      transition: border-color var(--transition), box-shadow var(--transition);
-    }
-    .stat-card:hover { border-color: var(--clr-accent); box-shadow: 0 0 0 3px var(--clr-accent2); }
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--clr-accent);
-      line-height: 1;
-    }
-    .stat-label { font-size: 0.85rem; color: var(--clr-muted); margin-top: 0.25rem; }
+      /* stats strip */
+      .stats-strip {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-top: 1rem;
+      }
+      .stat-card {
+        background: var(--clr-surface);
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-md);
+        padding: 1.25rem 1.5rem;
+        transition:
+          border-color var(--transition),
+          box-shadow var(--transition);
+      }
+      .stat-card:hover {
+        border-color: var(--clr-accent);
+        box-shadow: 0 0 0 3px var(--clr-accent2);
+      }
+      .stat-num {
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--clr-accent);
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 0.85rem;
+        color: var(--clr-muted);
+        margin-top: 0.25rem;
+      }
 
-    /* brands */
-    .brands-section { margin-top: 3rem; }
-    .brands-title {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--clr-muted);
-      margin-bottom: 1rem;
-    }
-    .brand-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
-    }
-    .brand-img-wrap {
-      background: var(--clr-surface);
-      border: 1px solid var(--clr-border);
-      border-radius: var(--radius-sm);
-      padding: 0.5rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color var(--transition), box-shadow var(--transition);
-      height: 52px;
-      width: 130px;
-    }
-    .brand-img-wrap:hover { border-color: var(--clr-accent); box-shadow: 0 0 0 3px var(--clr-accent2); }
-    .brand-img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; filter: grayscale(30%); transition: filter var(--transition); }
-    .brand-img-wrap:hover img { filter: grayscale(0%); }
+      /* brands */
+      .brands-section {
+        margin-top: 3rem;
+      }
+      .brands-title {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--clr-muted);
+        margin-bottom: 1rem;
+      }
+      .brand-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+      .brand-img-wrap {
+        background: var(--clr-surface);
+        border: 1px solid var(--clr-border);
+        border-radius: var(--radius-sm);
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          border-color var(--transition),
+          box-shadow var(--transition);
+        height: 52px;
+        width: 130px;
+      }
+      .brand-img-wrap:hover {
+        border-color: var(--clr-accent);
+        box-shadow: 0 0 0 3px var(--clr-accent2);
+      }
+      .brand-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        filter: grayscale(30%);
+        transition: filter var(--transition);
+      }
+      .brand-img-wrap:hover img {
+        filter: grayscale(0%);
+      }
 
       /* ===== PRODUCTS ===== */
       .products-bg {
@@ -451,7 +436,6 @@
       }
       .card-body {
         padding: 1rem 1.1rem;
-        text-align: center;
         font-size: 0.9rem;
         font-weight: 500;
         color: var(--clr-text);
@@ -764,7 +748,6 @@
         border: 1px solid var(--clr-border);
         border-radius: var(--radius-lg);
         overflow: hidden;
-        text-align: center;
         transition:
           transform var(--transition),
           box-shadow var(--transition);
@@ -795,7 +778,6 @@
 
       /* ===== TRANSFORMER CARDS ===== */
       .tx-grid {
-        text-align: center;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
         gap: 1.25rem;
@@ -817,7 +799,7 @@
         letter-spacing: 0.04em;
         text-align: center;
         padding: 0.85rem 1rem;
-        /* border-radius: 10px; */
+        border-radius: 0;
       }
       .busway-grid {
         display: grid;
@@ -891,27 +873,80 @@
           display: flex;
         }
         .nav-links {
-          position: fixed;
-          inset: 0 0 0 30%;
-          flex-direction: column;
-          align-items: flex-start;
-          justify-content: center;
-          gap: 0.5rem;
-          background: var(--clr-surface);
-          padding: 2rem;
-          transform: translateX(100%);
-          transition: transform var(--transition);
-          box-shadow: -4px 0 32px rgba(0, 0, 0, 0.15);
-          z-index: 200;
+          display: inline-block;
         }
-        .nav-links.open {
-          transform: translateX(0);
+
+        /* dropdown below navbar */
+        .mobile-dropdown {
+          display: block;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--clr-nav-bg);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid var(--clr-border);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+          max-height: 0;
+          overflow: hidden;
+          transition:
+            max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.3s ease;
+          opacity: 0;
+          z-index: 99;
         }
-        .nav-links a {
+        .mobile-dropdown.open {
+          max-height: 420px;
+          opacity: 1;
+        }
+        .mobile-dropdown ul {
+          list-style: none;
+          padding: 0.5rem 0 1rem;
+        }
+        .mobile-dropdown ul li a {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.85rem 1.5rem;
+          font-size: 0.98rem;
+          font-weight: 500;
+          color: var(--clr-text);
+          border-left: 3px solid transparent;
+          transition:
+            background var(--transition),
+            color var(--transition),
+            border-color var(--transition);
+        }
+        .mobile-dropdown ul li a:hover,
+        .mobile-dropdown ul li a:active {
+          background: var(--clr-surface2);
+          color: var(--clr-accent);
+          border-left-color: var(--clr-accent);
+        }
+        .mobile-dropdown ul li a .di {
           font-size: 1.1rem;
-          padding: 0.75rem 1rem;
-          width: 100%;
+          width: 24px;
+          text-align: center;
         }
+        .mobile-dropdown .dropdown-divider {
+          height: 1px;
+          background: var(--clr-border);
+          margin: 0.4rem 1.5rem;
+        }
+
+        /* hamburger → X */
+        .hamburger.active span:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+          opacity: 0;
+          transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
+        }
+
         .about-grid {
           grid-template-columns: 1fr;
         }
@@ -978,13 +1013,33 @@
         <a href="#" class="logo" aria-label="Everstar Engineering home"
           >EVERSTAR</a
         >
-        <ul class="nav-links" id="navLinks" role="list">
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#product">Products</a></li>
-          <li><a href="#mv">MV Systems</a></li>
-          <li><a href="#busway">Busway</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+         <div class="mobile-dropdown" id="mobileDropdown">
+          <ul class="nav-links" id="navLinks" role="list">
+            <li>
+              <a href="#about"><span class="di"></span>About Us</a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+              <a href="#product"><span class="di"></span>Products</a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+              <a href="#lv-detail"><span class="di"></span>LV Systems</a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+              <a href="#mv"><span class="di"></span>MV Systems</a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+              <a href="#busway"><span class="di"></span>Busway</a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+              <a href="#contact"><span class="di"></span>Contact</a>
+            </li>
+          </ul>
+        </div>
         <button
           class="theme-toggle"
           id="themeToggle"
@@ -1792,18 +1847,31 @@
         localStorage.setItem("theme", next);
       });
 
-      // Mobile nav
+      // Mobile nav dropdown
       const hamburger = document.getElementById("hamburger");
-      const navLinks = document.getElementById("navLinks");
-      hamburger.addEventListener("click", () => {
-        const open = navLinks.classList.toggle("open");
-        hamburger.setAttribute("aria-expanded", open);
+      const dropdown = document.getElementById("mobileDropdown");
+
+      function toggleNav() {
+        const isOpen = dropdown.classList.toggle("open");
+        hamburger.classList.toggle("active", isOpen);
+        hamburger.setAttribute("aria-expanded", isOpen);
+      }
+      function closeNav() {
+        dropdown.classList.remove("open");
+        hamburger.classList.remove("active");
+        hamburger.setAttribute("aria-expanded", false);
+      }
+
+      hamburger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleNav();
       });
-      navLinks.querySelectorAll("a").forEach((a) => {
-        a.addEventListener("click", () => {
-          navLinks.classList.remove("open");
-          hamburger.setAttribute("aria-expanded", false);
-        });
+      dropdown
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeNav));
+      document.addEventListener("click", (e) => {
+        if (!hamburger.contains(e.target) && !dropdown.contains(e.target))
+          closeNav();
       });
 
       // Scroll reveal
