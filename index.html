@@ -26,8 +26,8 @@
         --clr-topbar: #111110;
         --clr-topbar-fg: #b8b6af;
 
-        --font-display: "Syne", sans-serif;
-        --font-body: "DM Sans", sans-serif;
+        --font-display: "Inter", sans-serif;
+        --font-body: "Roboto", sans-serif;
 
         --radius-sm: 6px;
         --radius-md: 14px;
@@ -196,17 +196,18 @@
         transition: transform var(--transition);
       }
       .logo-img {
-  height: 38px;
-  width: auto;
-  object-fit: contain;
-  display: block;
-  transition: filter var(--transition); /* smooth fade on toggle */
-}
+        height: 38px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        transition: filter var(--transition); /* smooth fade on toggle */
+      }
 
-[data-theme="dark"] .logo-img {
-  filter: brightness(0) saturate(100%) invert(50%) sepia(80%) saturate(400%) hue-rotate(100deg);
-/* turns logo white in dark mode */
-}
+      [data-theme="dark"] .logo-img {
+        filter: brightness(0) saturate(100%) invert(50%) sepia(80%)
+          saturate(400%) hue-rotate(100deg);
+        /* turns logo white in dark mode */
+      }
       [data-theme="dark"] .theme-toggle::after {
         transform: translateX(16px);
       }
@@ -301,7 +302,7 @@
       }
       .section-label {
         display: inline-block;
-        font-size: 0.72rem;
+        font-size: 1.25rem;
         font-weight: 600;
         letter-spacing: 0.14em;
         text-transform: uppercase;
@@ -369,11 +370,11 @@
         margin-top: 3rem;
       }
       .brands-title {
-        font-size: 0.72rem;
+        font-size: 1.25rem;
         font-weight: 600;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--clr-muted);
+        color: var(--clr-accent);
         margin-bottom: 1rem;
       }
       .brand-grid {
@@ -429,6 +430,7 @@
         grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
         gap: 1.25rem;
         margin-bottom: 3rem;
+        text-align: center;
       }
       .product-card {
         background: var(--clr-surface);
@@ -448,6 +450,7 @@
         aspect-ratio: 4/3;
         object-fit: cover;
         width: 100%;
+        border-radius: none;
       }
       .card-body {
         padding: 1rem 1.1rem;
@@ -616,7 +619,7 @@
 
       /* ===== MV SECTION ===== */
       .mv-section {
-        background: var(--clr-surface);
+        background: #eeecea;
       }
       .check-list {
         display: flex;
@@ -666,9 +669,9 @@
 
       /* ===== CONTACT ===== */
       .contact-section {
-  background: #111110 !important;
-  color: #fff;
-}
+        background: #111110 !important;
+        color: #fff;
+      }
       .contact-section .section-label {
         color: #6bdf9a;
       }
@@ -750,7 +753,7 @@
 
       /* ===== SECONDARY MV / SM CARDS ===== */
       .secondary-mv {
-        background: var(--clr-bg);
+        background: #eeecea;
       }
       .sm-grid {
         display: grid;
@@ -987,24 +990,31 @@
         }
       }
       /* Samsung Galaxy S8+ & small phones */
-    @media (max-width: 420px) {
-      .topbar { font-size: 0.7rem; }
-      .topbar .container {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.2rem;
-        padding-block: 0.4rem;
+      @media (max-width: 420px) {
+        .topbar {
+          font-size: 0.7rem;
+        }
+        .topbar .container {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.2rem;
+          padding-block: 0.4rem;
+        }
+        .topbar-right {
+          display: flex;
+          flex-direction: column;
+          gap: 0.15rem;
+        }
+        .topbar-item {
+          gap: 0.3rem;
+        }
+        .logo-img {
+          height: 30px;
+        }
+        .main-nav .container {
+          padding-block: 0.7rem;
+        }
       }
-      .topbar-right {
-        display: flex;
-        flex-direction: column;
-        gap: 0.15rem;
-      }
-      .topbar-item { gap: 0.3rem; }
-      .logo-img { height: 30px; }
-      .main-nav .container { padding-block: 0.7rem; }
-    }
- 
 
       @media (max-width: 500px) {
         .products-header {
@@ -1045,12 +1055,15 @@
     <!-- MAIN NAV -->
     <nav class="main-nav" role="navigation" aria-label="Main navigation">
       <div class="container">
-            <a href="#" class="logo" aria-label="Everstar Engineering home">
-      <img src="https://res.cloudinary.com/diavobtxe/image/upload/v1781272448/TENZIS_Transparant_4k_gw61zx.png" alt="Everstar Engineering Logo" class="logo-img" />
-    </a>
-         <div class="mobile-dropdown" id="mobileDropdown">
+        <a href="#" class="logo" aria-label="Everstar Engineering home">
+          <img
+            src="https://res.cloudinary.com/diavobtxe/image/upload/v1781272448/TENZIS_Transparant_4k_gw61zx.png"
+            alt="Everstar Engineering Logo"
+            class="logo-img"
+          />
+        </a>
+        <div class="mobile-dropdown" id="mobileDropdown">
           <ul class="nav-links" id="navLinks" role="list">
-            
             <li>
               <a href="#product"><span class="di"></span>Products</a>
             </li>
@@ -1113,48 +1126,86 @@
     </section>
 
     <!-- ABOUT -->
-<section id="about" class="section" aria-labelledby="about-title">
-  <div class="container">
-    <div class="about-grid">
-      <div class="reveal">
-        <span class="section-label">Who We Are</span>
-        <h2 class="section-title" id="about-title">Powering Cambodia's Future Infrastructure</h2>
-        <p class="section-body">
-          <strong>TENZIS ENGINEERING CO., LTD.</strong> is a private company founded in 2026, specializing in LV Switchboard, MV Switchgear, Busway Systems, SCADA Systems, and Preventive Maintenance Services. We serve High-Rise Buildings, Data Centers, and Industrial sectors with end-to-end support — from consulting and ETAP electrical design to installation, Testing & Commissioning.
-        </p>
-        <div class="brands-section" style="margin-top:2rem;">
-          <p class="brands-title">Brands We Offer</p>
-          <div class="brand-grid">
-            <div class="brand-img-wrap"><img src="https://res.cloudinary.com/diavobtxe/image/upload/v1779378376/page-4-300x90.jpeg_izp5os.webp" alt="ABB" /></div>
-            <div class="brand-img-wrap"><img src="https://res.cloudinary.com/diavobtxe/image/upload/v1779377804/page-1-2-300x90.jpeg_ewdf7n.webp" alt="Siemens" /></div>
-            <div class="brand-img-wrap"><img src="https://res.cloudinary.com/diavobtxe/image/upload/v1779378378/schnie-300x90.jpeg_v0b0s8.webp" alt="Schneider" /></div>
-            <div class="brand-img-wrap"><img src="https://res.cloudinary.com/diavobtxe/image/upload/v1779377856/page-2-2-300x90.jpeg_ednfek.webp" alt="Mitsubishi" /></div>
-            <div class="brand-img-wrap"><img src="https://res.cloudinary.com/diavobtxe/image/upload/v1779377913/page-3-1-300x90.jpeg_e2qh5z.webp" alt="Fuji Electric" /></div>
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-grid">
+          <div class="reveal">
+            <span class="section-label">Who We Are</span>
+            <h2 class="section-title" id="about-title">
+              Powering Cambodia's Future Infrastructure
+            </h2>
+            <p class="section-body">
+              <strong>TENZIS ENGINEERING CO., LTD.</strong> established in 2026,
+              is a private engineering firm delivering expert solutions across
+              MV Switchgear, LV Switchboard, Busway Systems, SCADA Systems,
+              Factory Automation & Control Systems, and Preventive Maintenance
+              Services. We serve Utility & Power Generation, Commercial
+              Complexes & Mixed-Use Developments, Infrastructure &
+              Transportation, Healthcare Facilities, Renewable Energy
+              Integration, Data Centers, and Industrial sectors with end-to-end
+              support — from consulting electrical design to installation,
+              Testing & Commissioning.
+            </p>
+            <div class="brands-section" style="margin-top: 2rem">
+              <p class="brands-title">Strategic Partnerships</p>
+              <div class="brand-grid">
+                <div class="brand-img-wrap">
+                  <img
+                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779378376/page-4-300x90.jpeg_izp5os.webp"
+                    alt="ABB"
+                  />
+                </div>
+                <div class="brand-img-wrap">
+                  <img
+                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779377804/page-1-2-300x90.jpeg_ewdf7n.webp"
+                    alt="Siemens"
+                  />
+                </div>
+                <div class="brand-img-wrap">
+                  <img
+                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779378378/schnie-300x90.jpeg_v0b0s8.webp"
+                    alt="Schneider"
+                  />
+                </div>
+                <div class="brand-img-wrap">
+                  <img
+                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779377856/page-2-2-300x90.jpeg_ednfek.webp"
+                    alt="Mitsubishi"
+                  />
+                </div>
+                <div class="brand-img-wrap">
+                  <img
+                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779377913/page-3-1-300x90.jpeg_e2qh5z.webp"
+                    alt="Fuji Electric"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-strip reveal" style="transition-delay: 0.12s">
+            <div class="stat-card">
+              <div class="stat-num">13+</div>
+              <div class="stat-label">Product Categories</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">IEC</div>
+              <div class="stat-label">International Standards Compliant</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">certificate</div>
+              <div class="stat-label">ASEFA, ASTA, Dekra, …</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">7000A</div>
+              <div class="stat-label">
+                Max LV Switchboard Rating, Type-tested
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="stats-strip reveal" style="transition-delay:0.12s;">
-        <div class="stat-card">
-          <div class="stat-num">2026</div>
-          <div class="stat-label">Year Established</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">12+</div>
-          <div class="stat-label">Product Categories</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">IEC</div>
-          <div class="stat-label">International Standards Compliant</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">7kA</div>
-          <div class="stat-label">Max LV Switchboard Rating</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
     <!-- PRODUCTS -->
     <section
@@ -1166,39 +1217,43 @@
         <div class="products-header">
           <div class="reveal">
             <span class="section-label">What We Offer</span>
-            <h2 class="section-title" id="product-title">Our Products</h2>
+            <h2 class="section-title" id="product-title">
+              Our Products and Solutions
+            </h2>
           </div>
-          <a
+          <!-- <a
             href="#contact"
             class="btn btn-primary reveal"
             style="transition-delay: 0.1s"
             >Contact for Inquiry ↗</a
-          >
+          > -->
         </div>
 
         <div class="product-grid">
           <!-- 12 product cards -->
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375555/lowvoltage-1-768x433.jpeg_ncpyvs.webp"
-              alt="LV Switchboard"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785769984/img2_mpzu5e.png"
+              alt="Medium Switchgear"
               loading="lazy"
             />
             <div class="card-body">
-              <a href="#lv-detail">Low Voltage Switchboard</a>
+              <a href="#lv-detail"
+                >Medium Voltage Switchgear & Power Transformer</a
+              >
             </div>
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375635/page-2-768x768.jpeg_wbxnws.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785770812/img3_vckgfb.png"
               alt="Medium Switchgear"
               loading="lazy"
             />
-            <div class="card-body">Medium Switchgear / Transformer</div>
+            <div class="card-body">Low Voltage Switchboard / Motor Control</div>
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375684/page-3-768x768.jpeg_okzqlt.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785771890/img4_xerydi.png"
               alt="Busway System"
               loading="lazy"
             />
@@ -1208,13 +1263,11 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375738/page-8-2-1-768x768.jpg_gxfhn0.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785769686/img1_siz6bs.png"
               alt="Power Generator"
               loading="lazy"
             />
-            <div class="card-body">
-              Data Center & General Use Power Generator
-            </div>
+            <div class="card-body">Power Generator 10~3000KVA</div>
           </div>
           <div class="product-card reveal">
             <img
@@ -1226,60 +1279,68 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375829/page-6-768x768.jpeg_bcvldt.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785939320/img6_rmwccu.png  "
               alt="BMS"
               loading="lazy"
             />
-            <div class="card-body">Building Management System</div>
+            <div class="card-body">Factory Automation & Control Systems</div>
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375882/page-3-2-768x768.jpeg_cassmt.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785940408/img7_cqqwbw.png"
               alt="Preventive Maintenance"
-              loading="lazy"
-            />
-            <div class="card-body">Preventive Maintenance Service</div>
-          </div>
-          <div class="product-card reveal">
-            <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375928/page-5-768x768.jpeg_mfazbf.webp"
-              alt="Rack Cabinets"
-              loading="lazy"
-            />
-            <div class="card-body">Rack Cabinets</div>
-          </div>
-          <div class="product-card reveal">
-            <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375979/page-7-768x768.jpeg_czhrhd.webp"
-              alt="UPS"
-              loading="lazy"
-            />
-            <div class="card-body">UPS and LV Components</div>
-          </div>
-          <div class="product-card reveal">
-            <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376153/page-8-768x768.jpeg_hsvwzf.webp"
-              alt="Cable Tray"
-              loading="lazy"
-            />
-            <div class="card-body">Cable Tray, Ladder & Trucking System</div>
-          </div>
-          <div class="product-card reveal">
-            <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376056/page-11-768x768.jpeg_bsj2us.webp"
-              alt="Solar System"
               loading="lazy"
             />
             <div class="card-body">Solar On-Grid & Off-Grid System</div>
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376018/page-12-768x768.jpeg_joxbtu.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785940611/img8_er0i1j.png"
+              alt="Rack Cabinets"
+              loading="lazy"
+            />
+            <div class="card-body">UPS and LV Components</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785940822/img9_eqwt2c.png"
+              alt="UPS"
+              loading="lazy"
+            />
+            <div class="card-body">Cable Ladder, Tray, & Trucking System</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785940996/img10_erfayp.png"
+              alt="Cable Tray"
+              loading="lazy"
+            />
+            <div class="card-body">SCADA System / Monitor & Control</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785941149/img11_aqxvp6.png"
+              alt="Solar System"
+              loading="lazy"
+            />
+            <div class="card-body">Preventive Maintenance Service</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785942479/img12_wqn3pa.png"
+              alt="ETAP Software"
+              loading="lazy"
+            />
+            <div class="card-body">Data Center Power System Solution</div>
+          </div>
+          <div class="product-card reveal">
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785943796/img13_2_fpqoup.png"
               alt="ETAP Software"
               loading="lazy"
             />
             <div class="card-body">
-              ETAP Energy Management Software & Calculation Service
+              Consultation on Electrical Design and Calculation
             </div>
           </div>
         </div>
@@ -1368,173 +1429,170 @@
                   <div class="spec-brand">Modular Board — IEC Standard</div>
                 </div>
               </div>
-              </div>
             </div>
           </div>
+        </div>
 
-          <!-- BlokSet Detail -->
-          <div class="detail-section">
-            <span class="section-label">Schneider Electric</span>
-            <h3 class="section-title" style="font-size: 1.5rem">
-              BlokSet Low Voltage Switchboard
-            </h3>
-            <p class="section-body">
-              BlokSeT is a low voltage switchboard for power distribution and
-              motor control up to 7000A — engineered for safety, reliability,
-              and intelligence.
-            </p>
-            <div class="detail-grid">
-              <div>
-                <div class="detail-img-wrap">
-                  <img
-                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375555/lowvoltage-1-768x433.jpeg_ncpyvs.webp"
-                    alt="BlokSet"
-                    loading="lazy"
-                  />
-                </div>
-                <a
-                  href="https://www.youtube.com/watch?v=FjNBRxfU_yY"
-                  class="video-link"
-                  target="_blank"
-                  rel="noopener"
+        <!-- BlokSet Detail -->
+        <div class="detail-section">
+          <span class="section-label">Schneider Electric</span>
+          <h3 class="section-title" style="font-size: 1.5rem">
+            BlokSet Low Voltage Switchboard
+          </h3>
+          <p class="section-body">
+            BlokSeT is a low voltage switchboard for power distribution and
+            motor control up to 7000A — engineered for safety, reliability, and
+            intelligence.
+          </p>
+          <div class="detail-grid">
+            <div>
+              <div class="detail-img-wrap">
+                <img
+                  src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375555/lowvoltage-1-768x433.jpeg_ncpyvs.webp"
+                  alt="BlokSet"
+                  loading="lazy"
+                />
+              </div>
+              <a
+                href="https://www.youtube.com/watch?v=FjNBRxfU_yY"
+                class="video-link"
+                target="_blank"
+                rel="noopener"
+              >
+                ▶ New Generation of BlokSeT | Schneider Electric
+              </a>
+            </div>
+            <div class="detail-content">
+              <h4>Introduction</h4>
+              <ul>
+                <li>
+                  Designed & type-tested to IEC 61439-1&2, certified by ASEFA,
+                  ASTA & Dekra
+                </li>
+                <li>Recognized LV panel for internal arc performance</li>
+                <li>Green Premium product</li>
+                <li>
+                  Worldwide, localized support for troubleshooting & maintenance
+                </li>
+              </ul>
+              <h4>Applications</h4>
+              <div class="tag-list">
+                <span class="tag">Data Center</span
+                ><span class="tag">Industry</span
+                ><span class="tag">Commercial Building</span>
+              </div>
+              <div style="margin-top: 1.5rem">
+                <a href="#contact" class="btn btn-primary"
+                  >Contact for Quotation</a
                 >
-                  ▶ New Generation of BlokSeT | Schneider Electric
-                </a>
-              </div>
-              <div class="detail-content">
-                <h4>Introduction</h4>
-                <ul>
-                  <li>
-                    Designed & type-tested to IEC 61439-1&2, certified by ASEFA,
-                    ASTA & Dekra
-                  </li>
-                  <li>Recognized LV panel for internal arc performance</li>
-                  <li>Green Premium product</li>
-                  <li>
-                    Worldwide, localized support for troubleshooting &
-                    maintenance
-                  </li>
-                </ul>
-                <h4>Applications</h4>
-                <div class="tag-list">
-                  <span class="tag">Data Center</span
-                  ><span class="tag">Industry</span
-                  ><span class="tag">Commercial Building</span>
-                </div>
-                <div style="margin-top: 1.5rem">
-                  <a href="#contact" class="btn btn-primary"
-                    >Contact for Quotation</a
-                  >
-                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Sivacon Detail -->
-          <div class="detail-section">
-            <span class="section-label">Siemens</span>
-            <h3 class="section-title" style="font-size: 1.5rem">
-              Sivacon S8 Low Voltage Switchboard
-            </h3>
-            <p class="section-body">
-              The Sivacon S8 supports safe, flexible, efficient power
-              distribution up to 7010A — fully compatible with SENTRON devices
-              to reduce investment costs and increase availability.
-            </p>
-            <div class="detail-grid">
-              <div>
-                <div class="detail-img-wrap">
-                  <img
-                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376286/11-768x433.jpg_kpl6sp.webp"
-                    alt="Sivacon S8"
-                    loading="lazy"
-                  />
-                </div>
-                <a
-                  href="https://www.youtube.com/watch?v=ZHMTKf5B8oI"
-                  class="video-link"
-                  target="_blank"
-                  rel="noopener"
+        <!-- Sivacon Detail -->
+        <div class="detail-section">
+          <span class="section-label">Siemens</span>
+          <h3 class="section-title" style="font-size: 1.5rem">
+            Sivacon S8 Low Voltage Switchboard
+          </h3>
+          <p class="section-body">
+            The Sivacon S8 supports safe, flexible, efficient power distribution
+            up to 7010A — fully compatible with SENTRON devices to reduce
+            investment costs and increase availability.
+          </p>
+          <div class="detail-grid">
+            <div>
+              <div class="detail-img-wrap">
+                <img
+                  src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376286/11-768x433.jpg_kpl6sp.webp"
+                  alt="Sivacon S8"
+                  loading="lazy"
+                />
+              </div>
+              <a
+                href="https://www.youtube.com/watch?v=ZHMTKf5B8oI"
+                class="video-link"
+                target="_blank"
+                rel="noopener"
+              >
+                ▶ SIVACON S8 Low-Voltage Switchboard
+              </a>
+            </div>
+            <div class="detail-content">
+              <h4>Introduction</h4>
+              <ul>
+                <li>
+                  Tested to IEC 61439-1/2, ensuring highest safety for people
+                  and equipment
+                </li>
+                <li>
+                  Modular construction to suit all individual requirements
+                </li>
+                <li>
+                  Quickly configured via SIMARIS software, saving planning time
+                </li>
+                <li>Main Switchboard & Motor Control offering</li>
+              </ul>
+              <h4>Applications</h4>
+              <div class="tag-list">
+                <span class="tag">Data Center</span
+                ><span class="tag">Industry</span
+                ><span class="tag">Commercial Building</span>
+              </div>
+              <div style="margin-top: 1.5rem">
+                <a href="#contact" class="btn btn-primary"
+                  >Contact for Quotation</a
                 >
-                  ▶ SIVACON S8 Low-Voltage Switchboard
-                </a>
-              </div>
-              <div class="detail-content">
-                <h4>Introduction</h4>
-                <ul>
-                  <li>
-                    Tested to IEC 61439-1/2, ensuring highest safety for people
-                    and equipment
-                  </li>
-                  <li>
-                    Modular construction to suit all individual requirements
-                  </li>
-                  <li>
-                    Quickly configured via SIMARIS software, saving planning
-                    time
-                  </li>
-                  <li>Main Switchboard & Motor Control offering</li>
-                </ul>
-                <h4>Applications</h4>
-                <div class="tag-list">
-                  <span class="tag">Data Center</span
-                  ><span class="tag">Industry</span
-                  ><span class="tag">Commercial Building</span>
-                </div>
-                <div style="margin-top: 1.5rem">
-                  <a href="#contact" class="btn btn-primary"
-                    >Contact for Quotation</a
-                  >
-                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Distribution Board Detail -->
-          <div class="detail-section">
-            <span class="section-label">IEC Standard</span>
-            <h3 class="section-title" style="font-size: 1.5rem">
-              Distribution Board & Motor Control Board
-            </h3>
-            <p class="section-body">
-              Manufactured up to 1600A and fully customizable to meet customer
-              requirements — certified safe and reliable for your business power
-              supply.
-            </p>
-            <div class="detail-grid">
-              <div>
-                <div class="detail-img-wrap">
-                  <img
-                    src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376375/Rack-new-1024x577.jpeg_sy03vz.webp"
-                    alt="Distribution Board"
-                    loading="lazy"
-                  />
-                </div>
+        <!-- Distribution Board Detail -->
+        <div class="detail-section">
+          <span class="section-label">IEC Standard</span>
+          <h3 class="section-title" style="font-size: 1.5rem">
+            Distribution Board & Motor Control Board
+          </h3>
+          <p class="section-body">
+            Manufactured up to 1600A and fully customizable to meet customer
+            requirements — certified safe and reliable for your business power
+            supply.
+          </p>
+          <div class="detail-grid">
+            <div>
+              <div class="detail-img-wrap">
+                <img
+                  src="https://res.cloudinary.com/diavobtxe/image/upload/v1779376375/Rack-new-1024x577.jpeg_sy03vz.webp"
+                  alt="Distribution Board"
+                  loading="lazy"
+                />
               </div>
-              <div class="detail-content">
-                <h4>Introduction</h4>
-                <ul>
-                  <li>
-                    Manufactured to IEC 61439-1/2 — highest quality and safety
-                    assured
-                  </li>
-                  <li>
-                    Full range: 63A–1600A, motors up to 250kW for industrial &
-                    civil projects
-                  </li>
-                  <li>Certified by Quatest-1 per IEC 61439-1 and IEC 60529</li>
-                </ul>
-                <h4>Applications</h4>
-                <div class="tag-list">
-                  <span class="tag">Data Center</span
-                  ><span class="tag">Industry</span
-                  ><span class="tag">Commercial Building</span>
-                </div>
-                <div style="margin-top: 1.5rem">
-                  <a href="#contact" class="btn btn-primary"
-                    >Contact for Quotation</a
-                  >
-                </div>
+            </div>
+            <div class="detail-content">
+              <h4>Introduction</h4>
+              <ul>
+                <li>
+                  Manufactured to IEC 61439-1/2 — highest quality and safety
+                  assured
+                </li>
+                <li>
+                  Full range: 63A–1600A, motors up to 250kW for industrial &
+                  civil projects
+                </li>
+                <li>Certified by Quatest-1 per IEC 61439-1 and IEC 60529</li>
+              </ul>
+              <h4>Applications</h4>
+              <div class="tag-list">
+                <span class="tag">Data Center</span
+                ><span class="tag">Industry</span
+                ><span class="tag">Commercial Building</span>
+              </div>
+              <div style="margin-top: 1.5rem">
+                <a href="#contact" class="btn btn-primary"
+                  >Contact for Quotation</a
+                >
               </div>
             </div>
           </div>
@@ -1840,7 +1898,9 @@
               <div>
                 <div class="contact-label">Email</div>
                 <div class="contact-value">
-                  <a href="mailto:director@tenzis-engineering.com" style="color: inherit"
+                  <a
+                    href="mailto:director@tenzis-engineering.com"
+                    style="color: inherit"
                     >director@tenzis-engineering.com</a
                   >
                 </div>
