@@ -1439,7 +1439,7 @@
 
             <!-- Image 1 -->
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266800/Head-2-removebg-preview_idqrkg.png"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786289399/LV-Blokset_2_-Photoroom_ebqp4c.png"
               alt="Medium Voltage Switchgear & Power Transformer"
               class="hero-slide"
             />
@@ -1453,21 +1453,21 @@
 
             <!-- Image 3 -->
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266883/Silent-Diesel-Generator-Set-Fenova-Series-2-removebg-preview_jnle2e.png"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786288878/Silent-Diesel-Generator-Set-Fenova-Series-2-Photoroom_tbhmis.png"
               alt="Silent Diesel Generator Set"
               class="hero-slide"
             />
 
             <!-- Image 4 -->
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266888/Low-Voltage-Components-scaled-removebg-preview_iponcy.png"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786289245/Low-Voltage-Components-scaled-Photoroom_kaed9j.png"
               alt="Low Voltage Components"
               class="hero-slide"
             />
 
             <!-- Clone of FIRST image -->
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266800/Head-2-removebg-preview_idqrkg.png"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786289399/LV-Blokset_2_-Photoroom_ebqp4c.png"
               alt="Medium Voltage Switchgear & Power Transformer"
               class="hero-slide"
             />
@@ -1623,7 +1623,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785770812/img3_vckgfb.png"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786288653/img3_u5k8v2.png"
               alt="Medium Switchgear"
               loading="lazy"
             />
@@ -2253,10 +2253,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img
-                      src="./public/2AABEE.svg"
-                      alt="Telegram"
-                    />
+                    <img src="./public/2AABEE.svg" alt="Telegram" />
                   </a>
 
                   <a
@@ -2264,10 +2261,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img
-                      src="./public/25D366.svg"
-                      alt="WhatsApp"
-                    />
+                    <img src="./public/25D366.svg" alt="WhatsApp" />
                   </a>
                 </div>
               </div>
@@ -2395,36 +2389,78 @@
       });
 
       // Autoplay
+      // =========================
+      // Autoplay
+      // =========================
+
+      let autoPlay = null;
+
       function startAutoPlay() {
-        return setInterval(() => {
+        if (autoPlay) return;
+
+        autoPlay = setInterval(() => {
           nextSlide();
         }, autoPlayTime);
       }
 
-      let autoPlay = startAutoPlay();
-
-      // Reset autoplay
-      function resetAutoPlay() {
-        clearInterval(autoPlay);
-        autoPlay = startAutoPlay();
+      function stopAutoPlay() {
+        if (autoPlay) {
+          clearInterval(autoPlay);
+          autoPlay = null;
+        }
       }
 
-      // Dot click
-      heroDots.forEach((dot, index) => {
-        dot.addEventListener("click", () => {
-          currentSlide = index + 1;
+      function resetAutoPlay() {
+        stopAutoPlay();
+        startAutoPlay();
+      }
 
-          moveSlide(currentSlide);
+      // =========================
+      // Pause when touching image
+      // =========================
 
-          updateDots(index);
+      heroTrack.addEventListener(
+        "touchstart",
+        () => {
+          stopAutoPlay();
+        },
+        { passive: true },
+      );
 
+      // Resume when finger is released
+      heroTrack.addEventListener(
+        "touchend",
+        () => {
           resetAutoPlay();
-        });
+        },
+        { passive: true },
+      );
+
+      // Resume if touch is cancelled
+      heroTrack.addEventListener(
+        "touchcancel",
+        () => {
+          resetAutoPlay();
+        },
+        { passive: true },
+      );
+
+      // =========================
+      // Mouse support
+      // =========================
+
+      // Pause when mouse is over the image
+      heroTrack.addEventListener("mouseenter", () => {
+        stopAutoPlay();
       });
 
-      // Initialize
-      moveSlide(1, false);
-      updateDots(0);
+      // Resume when mouse leaves
+      heroTrack.addEventListener("mouseleave", () => {
+        resetAutoPlay();
+      });
+
+      // Start autoplay
+      startAutoPlay();
     </script>
   </body>
 </html>
