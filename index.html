@@ -239,7 +239,7 @@
         position: relative;
         overflow: hidden;
         height: clamp(340px, 60vh, 680px);
-        background: #0a0a0a;
+        /* background: #ffff; */
       }
       .hero video {
         position: absolute;
@@ -1160,6 +1160,107 @@
           align-items: flex-start;
         }
       }
+
+      .hero-slideshow {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .hero-track {
+        display: flex;
+
+        /* 6 images total */
+        width: 600%;
+        height: 100%;
+
+        /* Start at real Image 1 */
+        transform: translateX(-16.6667%);
+
+        transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+      }
+      .hero-track img {
+        width: 16.6667%;
+        flex: 0 0 16.6667%;
+        height: 100%;
+        object-fit: contain;
+        padding: 30px;
+        box-sizing: border-box;
+        background: #fff;
+      }
+
+      .hero-slide {
+        width: 16.6667%;
+        flex: 0 0 16.6667%;
+        height: 100%;
+
+        object-fit: contain;
+        object-position: center;
+      }
+
+      /* =========================
+   DOT BACKGROUND
+   ========================= */
+
+      .hero-slider-dots {
+        position: absolute;
+        left: 50%;
+        bottom: 25px;
+
+        transform: translateX(-50%);
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        padding: 8px 12px;
+
+        background: rgba(0, 0, 0, 0.35);
+
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+
+        border: 1px solid rgba(255, 255, 255, 0.15);
+
+        border-radius: 999px;
+
+        z-index: 20;
+      }
+
+      /* =========================
+   DOT
+   ========================= */
+
+      .hero-slider-dot {
+        width: 9px;
+        height: 9px;
+
+        padding: 0;
+        margin: 0;
+
+        border: none;
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.45);
+
+        cursor: pointer;
+
+        transition:
+          width 0.3s ease,
+          background 0.3s ease;
+      }
+
+      .hero-slider-dot.active {
+        width: 28px;
+
+        background: #ffffff;
+
+        border-radius: 999px;
+      }
+
+      .hero-slider-dot:hover {
+        background: rgba(255, 255, 255, 0.85);
+      }
     </style>
   </head>
   <body>
@@ -1180,15 +1281,15 @@
             </li>
             <div class="dropdown-divider"></div>
             <li>
-              <a href="#lv-detail"><span class="di"></span>LV Systems</a>
+              <a href="#busway"><span class="di"></span>Medium Voltage</a>
             </li>
             <div class="dropdown-divider"></div>
             <li>
-              <a href="#mv"><span class="di"></span>MV Systems</a>
+              <a href="#low-voltage"><span class="di"></span>Low Voltage</a>
             </li>
             <div class="dropdown-divider"></div>
             <li>
-              <a href="#busway"><span class="di"></span>Busway</a>
+              <a href="#busway-detail"><span class="di"></span>Busway</a>
             </li>
             <div class="dropdown-divider"></div>
             <li>
@@ -1219,15 +1320,79 @@
 
     <!-- HERO -->
     <section class="hero" aria-label="Hero video">
-      <video autoplay muted loop playsinline>
-        <source
-          src="https://res.cloudinary.com/diavobtxe/video/upload/v1781703713/tenzis_rdee8h.mp4"
-          type="video/mp4"
-        />
-      </video>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="container">
-        <div class="hero-content"></div>
+      <div class="hero">
+        <div class="hero-slideshow">
+          <div class="hero-track" id="heroTrack">
+            <!-- Clone of LAST image -->
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266888/Low-Voltage-Components-scaled-removebg-preview_iponcy.png"
+              alt="Low Voltage Components"
+              class="hero-slide"
+            />
+
+            <!-- Image 1 -->
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266800/Head-2-removebg-preview_idqrkg.png"
+              alt="Medium Voltage Switchgear & Power Transformer"
+              class="hero-slide"
+            />
+
+            <!-- Image 2 -->
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266865/LV-Sivacon-removebg-preview_bvk6ly.png"
+              alt="Low Voltage Switchboard / Motor Control"
+              class="hero-slide"
+            />
+
+            <!-- Image 3 -->
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266883/Silent-Diesel-Generator-Set-Fenova-Series-2-removebg-preview_jnle2e.png"
+              alt="Silent Diesel Generator Set"
+              class="hero-slide"
+            />
+
+            <!-- Image 4 -->
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266888/Low-Voltage-Components-scaled-removebg-preview_iponcy.png"
+              alt="Low Voltage Components"
+              class="hero-slide"
+            />
+
+            <!-- Clone of FIRST image -->
+            <img
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266800/Head-2-removebg-preview_idqrkg.png"
+              alt="Medium Voltage Switchgear & Power Transformer"
+              class="hero-slide"
+            />
+          </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="hero-slider-dots">
+          <button
+            class="hero-slider-dot active"
+            data-slide="0"
+            aria-label="Show image 1"
+          ></button>
+
+          <button
+            class="hero-slider-dot"
+            data-slide="1"
+            aria-label="Show image 2"
+          ></button>
+
+          <button
+            class="hero-slider-dot"
+            data-slide="2"
+            aria-label="Show image 3"
+          ></button>
+
+          <button
+            class="hero-slider-dot"
+            data-slide="3"
+            aria-label="Show image 4"
+          ></button>
+        </div>
       </div>
     </section>
 
@@ -1308,12 +1473,12 @@
               <div class="stat-num">certificate</div>
               <div class="stat-label">ASEFA, ASTA, Dekra, …</div>
             </div>
-            <div class="stat-card">
+            <a href="#sivacon-s8" class="stat-card">
               <div class="stat-num">7000A</div>
               <div class="stat-label">
                 Max LV Switchboard Rating, Type-tested
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -1377,7 +1542,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1779375795/Syncronization-768x768.jpeg_nbmtdd.webp"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786256980/Synch-removebg-preview_wbdlqu.png"
               alt="Synchronization System"
               loading="lazy"
             />
@@ -1385,7 +1550,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786028127/img12_xdrn6z.png"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786254969/data-center-power-and-cooling_nqize7.jpg"
               alt="ETAP Software"
               loading="lazy"
             />
@@ -1393,7 +1558,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785939320/img6_rmwccu.png  "
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786256513/Factory_Automation_Control_System_vqm2nx.png"
               alt="BMS"
               loading="lazy"
             />
@@ -1410,7 +1575,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785940408/img7_cqqwbw.png"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786255647/Solar_femrjh.png"
               alt="Preventive Maintenance"
               loading="lazy"
             />
@@ -1434,7 +1599,7 @@
           </div>
           <div class="product-card reveal">
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1785941149/img11_aqxvp6.png"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786257335/img11_k51b6h.png"
               alt="Solar System"
               loading="lazy"
             />
@@ -1455,7 +1620,7 @@
 
         <!-- Sivacon Detail -->
         <div class="detail-section">
-          <span class="section-label">Low Voltage</span>
+          <span class="section-label" id="low-voltage">Low Voltage</span>
           <h2 class="section-title">Low Voltage Switchboard</h2>
           <p class="section-body">
             Fully type-tested and compliant with IEC 60439 standards, our Main
@@ -1466,7 +1631,7 @@
           </p>
           <br />
 
-          <span class="section-label"
+          <span id="sivacon-s8" class="section-label"
             >Sivacon S8 — Siemens / Main Switchboard
           </span>
 
@@ -1757,7 +1922,7 @@
           </div>
         </div>
 
-        <div class="detail-section">
+        <div id="busway-detail" class="detail-section">
           <span class="section-label">BUSWAY/BUSDUCT SYSTEM </span>
           <h2 class="section-title">Consult, Design & Build</h2>
           <p class="section-body">
@@ -1875,8 +2040,8 @@
             </span>
             <h3>Guarantee Design</h3>
             <p>
-              Complete power path engineering from transformers & generators
-              to MSB and risers without missing connection points.
+              Complete power path engineering from transformers & generators to
+              MSB and risers without missing connection points.
             </p>
           </div>
           <div class="overview-card">
@@ -2028,6 +2193,89 @@
       document
         .querySelectorAll(".reveal")
         .forEach((el) => observer.observe(el));
+
+      //slideshow
+
+      const heroTrack = document.getElementById("heroTrack");
+      const heroDots = document.querySelectorAll(".hero-slider-dot");
+
+      let currentSlide = 1;
+
+      const totalSlides = 4;
+      const slideWidth = 100 / (totalSlides + 2);
+      const transitionTime = 1000;
+      const autoPlayTime = 4000;
+
+      // Move slide
+      function moveSlide(index, animate = true) {
+        heroTrack.style.transition = animate
+          ? `transform ${transitionTime}ms cubic-bezier(0.77, 0, 0.175, 1)`
+          : "none";
+
+        heroTrack.style.transform = `translateX(-${index * slideWidth}%)`;
+      }
+
+      // Update dots
+      function updateDots(index) {
+        heroDots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === index);
+        });
+      }
+
+      // Next slide
+      function nextSlide() {
+        currentSlide++;
+
+        moveSlide(currentSlide);
+
+        if (currentSlide <= totalSlides) {
+          updateDots(currentSlide - 1);
+        }
+      }
+
+      // Handle infinite loop
+      heroTrack.addEventListener("transitionend", () => {
+        // Reached Clone of Image 1
+        if (currentSlide === totalSlides + 1) {
+          currentSlide = 1;
+
+          moveSlide(currentSlide, false);
+
+          updateDots(0);
+        }
+      });
+
+      // Autoplay
+      function startAutoPlay() {
+        return setInterval(() => {
+          nextSlide();
+        }, autoPlayTime);
+      }
+
+      let autoPlay = startAutoPlay();
+
+      // Reset autoplay
+      function resetAutoPlay() {
+        clearInterval(autoPlay);
+        autoPlay = startAutoPlay();
+      }
+
+      // Dot click
+      heroDots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+          currentSlide = index + 1;
+
+          moveSlide(currentSlide);
+
+          updateDots(index);
+
+          resetAutoPlay();
+        });
+      });
+
+      // Initialize
+      moveSlide(1, false);
+      updateDots(0);
     </script>
   </body>
 </html>
