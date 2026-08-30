@@ -1434,7 +1434,7 @@
               src="https://res.cloudinary.com/diavobtxe/image/upload/v1786266888/Low-Voltage-Components-scaled-removebg-preview_iponcy.png"
               alt="Low Voltage Components"
               class="hero-slide"
-            />
+            /> 
 
             <!-- Image 1 -->
             <img
@@ -1452,7 +1452,7 @@
 
             <!-- Image 3 -->
             <img
-              src="https://res.cloudinary.com/diavobtxe/image/upload/v1786288878/Silent-Diesel-Generator-Set-Fenova-Series-2-Photoroom_tbhmis.png"
+              src="https://res.cloudinary.com/diavobtxe/image/upload/v1788067937/Tidepower-Diesel-genset-removebg-preview_uqz9da.png"
               alt="Silent Diesel Generator Set"
               class="hero-slide"
             />
@@ -1472,7 +1472,7 @@
             />
           </div>
         </div>
-
+        
         <!-- Dots -->
         <div class="hero-slider-dots">
           <button
@@ -2247,7 +2247,8 @@
 
                 <!-- Social icons -->
                 <div class="contact-social">
-                  <a href="https://t.me/thearahim"
+                  <a
+                    href="https://t.me/thearahim"
                     class="social-icon"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -2255,7 +2256,8 @@
                     <img src="./public/2AABEE.svg" alt="Telegram" />
                   </a>
 
-                  <a href="https://Wa.me/+85512248477"
+                  <a
+                    href="https://Wa.me/+85512248477"
                     class="social-icon"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -2280,7 +2282,7 @@
     </footer>
 
     <script>
-      // Dark mode toggle
+      // ===== DARK MODE TOGGLE =====
       const toggle = document.getElementById("themeToggle");
       const html = document.documentElement;
       const saved = localStorage.getItem("theme");
@@ -2293,7 +2295,7 @@
         localStorage.setItem("theme", next);
       });
 
-      // Mobile nav dropdown
+      // ===== MOBILE NAV DROPDOWN =====
       const hamburger = document.getElementById("hamburger");
       const dropdown = document.getElementById("mobileDropdown");
 
@@ -2302,6 +2304,7 @@
         hamburger.classList.toggle("active", isOpen);
         hamburger.setAttribute("aria-expanded", isOpen);
       }
+
       function closeNav() {
         dropdown.classList.remove("open");
         hamburger.classList.remove("active");
@@ -2312,36 +2315,40 @@
         e.stopPropagation();
         toggleNav();
       });
+
       dropdown
         .querySelectorAll("a")
         .forEach((a) => a.addEventListener("click", closeNav));
+
       document.addEventListener("click", (e) => {
-        if (!hamburger.contains(e.target) && !dropdown.contains(e.target))
+        if (!hamburger.contains(e.target) && !dropdown.contains(e.target)) {
           closeNav();
+        }
       });
 
-      // Scroll reveal
+      // ===== SCROLL REVEAL =====
       const observer = new IntersectionObserver(
         (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("visible");
-              observer.unobserve(e.target);
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
             }
           });
         },
         { threshold: 0.08 },
       );
+
       document
         .querySelectorAll(".reveal")
         .forEach((el) => observer.observe(el));
 
-      //slideshow
-
+      // ===== HERO SLIDESHOW =====
       const heroTrack = document.getElementById("heroTrack");
       const heroDots = document.querySelectorAll(".hero-slider-dot");
 
       let currentSlide = 1;
+      let isTransitioning = false; // guards against overlapping/stacked transitions
 
       const totalSlides = 4;
       const slideWidth = 100 / (totalSlides + 2);
@@ -2355,6 +2362,10 @@
           : "none";
 
         heroTrack.style.transform = `translateX(-${index * slideWidth}%)`;
+
+        if (!animate) {
+          void heroTrack.offsetWidth;
+        }
       }
 
       // Update dots
@@ -2364,10 +2375,19 @@
         });
       }
 
+      // Snap the track straight back to the real first slide, no animation
+      function resetToStart() {
+        currentSlide = 1;
+        moveSlide(currentSlide, false);
+        updateDots(0);
+      }
+
       // Next slide
       function nextSlide() {
-        currentSlide++;
+        if (isTransitioning) return;
 
+        isTransitioning = true;
+        currentSlide++;
         moveSlide(currentSlide);
 
         if (currentSlide <= totalSlides) {
@@ -2375,31 +2395,42 @@
         }
       }
 
-      // Handle infinite loop
-      heroTrack.addEventListener("transitionend", () => {
-        // Reached Clone of Image 1
-        if (currentSlide === totalSlides + 1) {
-          currentSlide = 1;
+      // Handle infinite loop (jump back to the real first slide once the clone finishes)
+      heroTrack.addEventListener("transitionend", (e) => {
+        if (e.propertyName !== "transform") return;
 
-          moveSlide(currentSlide, false);
-
-          updateDots(0);
+        isTransitioning = false;
+        if (currentSlide >= totalSlides + 1) {
+          resetToStart();
         }
       });
 
-      // Autoplay
-      // =========================
-      // Autoplay
-      // =========================
+      // Allow the dots to jump directly to a slide
+      heroDots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          const target = Number(dot.dataset.slide);
+          currentSlide = target + 1; // +1 to account for the leading clone
+          isTransitioning = true;
+          moveSlide(currentSlide);
+          updateDots(target);
+          resetAutoPlay();
+        });
+      });
 
+      // If currentSlide ever ends up out of the valid range (defensive: covers
+      // any edge case not caught above), snap back to a known-good state.
+      function ensureInRange() {
+        if (currentSlide < 0 || currentSlide > totalSlides + 1) {
+          resetToStart();
+        }
+      }
+
+      // ===== AUTOPLAY =====
       let autoPlay = null;
 
       function startAutoPlay() {
         if (autoPlay) return;
-
-        autoPlay = setInterval(() => {
-          nextSlide();
-        }, autoPlayTime);
+        autoPlay = setInterval(nextSlide, autoPlayTime);
       }
 
       function stopAutoPlay() {
@@ -2414,48 +2445,31 @@
         startAutoPlay();
       }
 
-      // =========================
-      // Pause when touching image
-      // =========================
-
-      heroTrack.addEventListener(
-        "touchstart",
-        () => {
-          stopAutoPlay();
-        },
-        { passive: true },
-      );
-
-      // Resume when finger is released
-      heroTrack.addEventListener(
-        "touchend",
-        () => {
-          resetAutoPlay();
-        },
-        { passive: true },
-      );
-
-      // Resume if touch is cancelled
-      heroTrack.addEventListener(
-        "touchcancel",
-        () => {
-          resetAutoPlay();
-        },
-        { passive: true },
-      );
-
-      // =========================
-      // Mouse support
-      // =========================
-
-      // Pause when mouse is over the image
-      heroTrack.addEventListener("mouseenter", () => {
-        stopAutoPlay();
+      // Touch support: pause while touching, resume on release/cancel
+      heroTrack.addEventListener("touchstart", () => stopAutoPlay(), {
+        passive: true,
+      });
+      heroTrack.addEventListener("touchend", () => resetAutoPlay(), {
+        passive: true,
+      });
+      heroTrack.addEventListener("touchcancel", () => resetAutoPlay(), {
+        passive: true,
       });
 
-      // Resume when mouse leaves
-      heroTrack.addEventListener("mouseleave", () => {
-        resetAutoPlay();
+      // Mouse support: pause on hover, resume on leave
+      heroTrack.addEventListener("mouseenter", () => stopAutoPlay());
+      heroTrack.addEventListener("mouseleave", () => resetAutoPlay());
+
+      // Pause while the tab is hidden (prevents throttled timers from
+      // desyncing currentSlide from what's on screen), and resync on return.
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          stopAutoPlay();
+        } else {
+          isTransitioning = false;
+          ensureInRange();
+          resetAutoPlay();
+        }
       });
 
       // Start autoplay
